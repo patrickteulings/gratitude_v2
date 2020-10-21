@@ -47,7 +47,8 @@ export default defineComponent({
     const state = reactive({
       filteredGratitudes: [] as Array<GratitudeWrapper>,
       monthTemp: new Date(),
-      orientation: useGyro()
+      orientation: useGyro(),
+      scrollTop: 0
     })
 
     const test = reactive(() => {
@@ -78,7 +79,8 @@ export default defineComponent({
     }
 
     const handleChange = (val) => {
-      window.scrollTo(0, val)
+      state.scrollTop += (val / 10)
+      window.scrollTo(0, state.scrollTop)
     }
 
     watch(state.orientation, (first, second) => {
