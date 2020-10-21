@@ -8,12 +8,12 @@ module.exports = {
     appleMobileWebAppStatusBarStyle: '#182C34',
 
     // configure the workbox plugin
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
+    // workboxPluginMode: 'InjectManifest',
+    // workboxOptions: {
       // swSrc is required in InjectManifest mode.
       // swSrc: 'dev/sw.js'
       // ...other Workbox options...
-    },
+    // },
     manifestOptions: {
       name: 'Gratitude',
       shortName: 'Gratitude',
