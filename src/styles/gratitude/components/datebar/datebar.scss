@@ -1,0 +1,91 @@
+.datebar {
+
+  $dateButtonSize: 36px;
+  @include innerspace(1rem);
+
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  &__item {
+    @include position();
+    min-height: $dateButtonSize;
+
+    &:before {
+      content: "";
+      @include position(absolute);
+      @include size($dateButtonSize);
+      border-radius: 50%;
+      background-color: lighten(color('primary'), 100%);
+    }
+
+    &.hasNoEntry {
+      &:before {
+        background-color: rgba(255, 255, 255, 0.8);
+        .number {
+          // color: #fff;
+        }
+      }
+      .datebar__icon--wrapper {
+        display: none;
+      }
+    }
+
+    &.future {
+      opacity: 0.3;
+    }
+
+    .datebar__number{
+      @include size($dateButtonSize);
+      @include position(absolute);
+      @include flex-center('horizontal');
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      // text-transform: lowercase;
+      // text-transform: ;
+      z-index: 100;
+      font-weight: 500;
+      color: color('primary');
+      @include font-size(10px);
+
+      &--hidden-number {
+        @include hide-visually();
+      }
+
+      &__number {
+        margin-top: 8px;
+      }
+
+      .datebar__number--number {
+        padding: 0;
+        transition: all 0.5s;
+      }
+
+      &.hasEntry {
+        // color: color('warning');
+
+        &:before {
+          content: "";
+          @include size(calc(#{$dateButtonSize} + 4px));
+          @include position(absolute, -4px, -4px);
+          border-radius: 50%;
+          // border: 2px solid color('secondary');
+        }
+        .datebar__number--number {
+          padding-top: 9px;
+        }
+        .datebar__icon--wrapper {
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+
+    &.future {
+
+    }
+  }
+}

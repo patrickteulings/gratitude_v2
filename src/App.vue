@@ -1,14 +1,58 @@
 <template>
   <div id="app">
+    <top-bar />
+    <div v-if="loading">
+      <SplashScreen />
+    </div>
+    <div v-if="user && !loading">
+      <router-view />
+    </div>
+    <login-form v-else-if="!user && !loading" />
+    <div v-else>No satisfying user found</div>
+    <div v-if="error">error</div>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
   </div>
+  <section><section class="section">test</section></section>
 </template>
 
-<style lang="scss">
+<script lang="ts">
+// Core
+import { defineComponent, computed } from 'vue'
+
+// Components
+import TopBar from '@/components/navigation/TopBar.vue'
+import LoginForm from '@/components/user/LoginForm.vue'
+import SplashScreen from '@/components/splash/SplashScreen.vue'
+
+// Composables
+import { useLogin } from '@/use/auth/useLogin'
+import useAuth from '@/use/auth/useAuth'
+
+// Setup
+export default defineComponent({
+  setup () {
+    const { user, loading, error } = useAuth()
+    const loginState = useLogin()
+
+    return {
+      user,
+      loading,
+      error: computed(() => (loginState.error || error).value),
+      logout: loginState.logout
+    }
+  },
+  components: {
+    TopBar,
+    LoginForm,
+    SplashScreen
+  }
+})
+</script>
+
+<style lang="scss" src="@/styles/style.scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

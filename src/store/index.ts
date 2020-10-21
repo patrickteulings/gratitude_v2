@@ -1,15 +1,18 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex'
+import { SetupContext } from 'vue'
+import { UserStore } from '@/store/UserStore.ts'
+import { GratitudeStore } from '@/store/GratitudeStore.ts'
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default createStore({
   state: {
+    user: null
   },
   mutations: {
   },
   actions: {
   },
   modules: {
-  },
-});
+    userStore: UserStore,
+    gratitudeStore: GratitudeStore
+  }
+})

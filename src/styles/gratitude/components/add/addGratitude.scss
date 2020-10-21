@@ -1,0 +1,80 @@
+.add-gratitude {
+  position: fixed;
+  left: 0;
+  top: 100vh;
+  z-index: 199;
+  background: color('white');
+  @include transition(all, 0.3s);
+  @include size(100vw, 100vh);
+  overflow: scroll;
+
+  &.is-open {
+    display: block;
+    top: 0vh;
+  }
+
+  &__inner {
+    @include innerspace(4rem 3rem);
+  }
+
+  &__title {
+    font-family: 'Martel';
+    font-size: 48px;
+  }
+
+  &__body {
+    font-family: $primary-font-face;
+    line-height: 26px;
+    @include font-size(16px);
+  }
+
+  &__button {
+    position: fixed;
+    z-index: 300;
+    left: 50%;
+    margin-left: -32px;
+    bottom: 3rem;
+    opacity: 0;
+    transform: rotate(-90deg);
+    pointer-events: none;
+
+    &.is-visible {
+      pointer-events: auto;
+      transform: rotate(0deg);
+      opacity: 1;
+    }
+
+  }
+
+  &__button-confirm {
+    @include position(fixed, 50%, auto, 48px);
+    bottom: 48px;
+    margin-left: -32px;
+    z-index: 300;
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: rotate(-180deg);
+    pointer-events: none;
+    @include transition();
+
+    .gratitude-icon {
+      fill: #C8285C;
+    }
+
+    &.is-visible {
+      opacity: 1;
+      transform: rotate(0);
+      pointer-events: auto;
+      @include transition();
+    }
+  }
+
+  &__button--back {
+    position: relative;
+    top: 10px;
+    left: 50%;
+    margin-left: -32px;
+    opacity: 1;
+    margin-bottom: 4rem;
+  }
+}

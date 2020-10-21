@@ -1,48 +1,123 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa" target="_blank" rel="noopener">pwa</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest" target="_blank" rel="noopener">unit-jest</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    {{orientation.alpha}} bla
+    <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection"/>
+    <MonthsAgo :currentDate="monthTemp" @onclicked="goToDetailPage"/>
+    <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)"/>
+    <div v-if="filteredGratitudes.length">yes, gevonden
+    </div><div v-else>Not yet</div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+// Core
+import { defineComponent, reactive, computed, onMounted, toRefs, watch } from 'vue'
+import store from '@/store'
+import router from '@/router'
 
-export default Vue.extend({
+// Components
+import DateBar from '@/components/ui/DateBar.vue'
+import GratitudeCard from '@/components/cards/GratitudeCard.vue'
+import MonthsAgo from '@/components/toast/MonthsAgo.vue'
+
+// Composables
+import useDate from '@/use/useDate'
+import useGratitudeFilters from '@/use/gratitude/useGratitudeFilters'
+import { GratitudeWrapper, Gratitude } from '@/types/Gratitude'
+import { useGyro } from '@/use/gyro'
+
+// Interfaces
+
+
+// Go Time
+export default defineComponent({
   name: 'HelloWorld',
+
   props: {
-    msg: String,
+    msg: String
   },
-});
+
+  components: {
+    DateBar,
+    GratitudeCard,
+    MonthsAgo
+  },
+
+  setup () {
+    const state = reactive({
+      filteredGratitudes: [] as Array<GratitudeWrapper>,
+      monthTemp: new Date(),
+      orientation: useGyro()
+    })
+
+    const test = reactive(() => {
+      console.log('iets', useGyro())
+    })
+
+    const gratitudes = computed(() => {
+      return state.filteredGratitudes
+    })
+
+    const gratitudeList = () =>
+      state.filteredGratitudes.sort(
+        (a, b) => b.data.timeStamp.toDate() - a.data.timeStamp.toDate()
+      )
+
+
+    const getReadableDate = (_date: Date): string => useDate().formatDateToWordsWithLimit(_date, 10)
+
+    const onDateSelection = (_date: Date): void => {
+      state.filteredGratitudes = useGratitudeFilters().getGratitudesPerDay(_date)
+      // Temp, delete this
+      state.monthTemp = _date
+    }
+
+    const onResetDateSelection = (date: Date): void => {
+      state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
+      state.filteredGratitudes = gratitudeList()
+    }
+
+    const handleChange = (val) => {
+      window.scrollTo(0, val)
+    }
+
+    watch(state.orientation, (first, second) => {
+      const { alpha, beta, gamma } = second
+      handleChange(beta)
+    })
+
+
+    onMounted(() => {
+      const user = computed(() => store.getters['userStore/getUser'])
+
+      store.dispatch('gratitudeStore/loadGratitudesPromise', user.value).then((result: firebase.firestore.QuerySnapshot) => {
+        result.forEach((item: firebase.firestore.DocumentData) => {
+          const what: GratitudeWrapper = { data: item.data(), id: item.id }
+
+          state.filteredGratitudes.push(what)
+          store.dispatch('gratitudeStore/addSingleGratitude', what)
+        })
+        state.filteredGratitudes = gratitudeList()
+      })
+    })
+
+    const goToDetailPage = (gratitude: GratitudeWrapper): void => {
+      router.push({ name: 'gratitude/detail', params: { id: gratitude.id } })
+    }
+
+    return {
+      test,
+      ...toRefs(state),
+      // filtered,
+      gratitudes,
+      gratitudeList,
+      getReadableDate,
+      goToDetailPage,
+      onDateSelection,
+      onResetDateSelection
+    }
+  }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

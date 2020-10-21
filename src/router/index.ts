@@ -1,14 +1,13 @@
-import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../views/Home.vue'
+import Detail from '@/views/gratitude/Detail.vue'
 
-Vue.use(VueRouter);
-
-const routes: RouteConfig[] = [
+// eslint-disable-next-line
+const routes: any[] = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: Home
   },
   {
     path: '/about',
@@ -16,14 +15,21 @@ const routes: RouteConfig[] = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-];
+  {
+    path: '/gratitude/detail/:id',
+    name: 'gratitude/detail',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/gratitude/Detail.vue')
+  }
+]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-});
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
 
-export default router;
+export default router

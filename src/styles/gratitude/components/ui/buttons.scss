@@ -1,0 +1,63 @@
+.btn {
+  @include transition();
+  @include card-shadow(2);
+  @include flex-center('both');
+
+  &--round {
+    @include size(64px);
+    @include innerspace(24px);
+    @include transition();
+    background: color('white');
+    color: color('action');
+    font-weight: 600;
+    line-height: 0;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &--round-small {
+    @include innerspace(20px);
+    @include size(24px);
+
+    svg {
+      @include size(16px);
+    }
+  }
+
+  .gratitude-icon {
+    fill: color('action');
+  }
+
+  &--delete {
+    background: #C8285C;
+    text-transform: uppercase;
+    font-family: $handwriting-font-face;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+  }
+
+  &--hamburger {
+    @include position();
+    @include size(40px);
+    background: none;
+
+    span {
+      @include position(absolute, 5px, 8px);
+      background: color('white');
+      display: inline-block;
+      width: calc(100% - 16px);
+      height: 1px;
+
+      &:nth-child(1) {
+        top: 16px;
+        width: calc(80% - 16px);
+      }
+      &:nth-child(2) {
+        top: 24px;
+        width: calc(90% - 16px);
+      }
+    }
+  }
+}
+

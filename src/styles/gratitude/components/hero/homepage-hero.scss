@@ -1,0 +1,56 @@
+.homepage-hero {
+  @include size(100vw, 50vh);
+  display: flex;
+  align-items: flex-end;
+  background: color('secondary');
+
+  &__background {
+    width: 100vw;
+    height: 50vh;
+    overflow: hidden;
+    @include position(absolute);
+
+
+    svg{
+      @include position(absolute, auto, auto, -2rem, -1rem);
+      height: 40vh;
+      transform: scaleX(-1);
+      path {
+        fill : lighten(color('secondary'), 3%);
+      }
+    }
+  }
+}
+
+.numberbar {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+
+  &-item {
+    @include innerspace(0.5rem);
+    @include flex-center('horizontal');
+
+    &__inner {
+
+    }
+
+    &__amount {
+      display: block;
+      font-family: $numbers-accent;
+      font-weight: 700;
+      @include font-size(32px);
+      color: color('white');
+    }
+
+    &__description {
+      display: block;
+      font-family: $handwriting-font-face;
+      color: color('white');
+    }
+  }
+
+}
