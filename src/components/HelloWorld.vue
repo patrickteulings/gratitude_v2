@@ -78,6 +78,8 @@ export default defineComponent({
       state.filteredGratitudes = gratitudeList()
     }
 
+
+    // @to[do] Add Request Animation Fram
     const handleChange = (val) => {
       state.scrollTop += (val / 10)
       window.scrollTo(0, state.scrollTop)
