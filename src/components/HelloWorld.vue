@@ -80,21 +80,22 @@ export default defineComponent({
 
 
     const update = () => {
+      const h = document.getElementById('app')
+      const h2 = (h) ? h.clientHeight - window.innerHeight : 0
+
       if (state.scrollTop < 0) {
         state.scrollTop = 0
         return
       }
-      const h = document.getElementById('app')
-      if (h) {
-        const h2 = h.clientHeight - window.innerHeight
-        if (state.scrollTop >= h2) {
-          state.scrollTop = h2
-          return
-        }
+
+      if (state.scrollTop >= h2) {
+        state.scrollTop = h2
+        return
       }
+
       state.scrollTop += (state.beta / 100)
-      console.log('state.scrollTop', state.scrollTop)
-      window.scrollTo(0, state.scrollTop)
+
+      // window.scrollTo(0, state.scrollTop)
       requestAnimationFrame(update)
     }
 
@@ -106,6 +107,7 @@ export default defineComponent({
 
     watch(state.orientation, (first, second) => {
       const { alpha, beta, gamma } = second
+
       handleChange(beta)
     })
 
