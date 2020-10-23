@@ -23,7 +23,7 @@ import MonthsAgo from '@/components/toast/MonthsAgo.vue'
 import useDate from '@/use/useDate'
 import useGratitudeFilters from '@/use/gratitude/useGratitudeFilters'
 import { GratitudeWrapper, Gratitude } from '@/types/Gratitude'
-import { useGyro } from '@/use/gyro'
+import { useGyro } from '@/use/useGyro'
 
 // Interfaces
 
@@ -51,35 +51,34 @@ export default defineComponent({
       beta: 0
     })
 
-    const test = reactive(() => {
-      console.log('iets', useGyro())
-    })
-
     const gratitudes = computed(() => {
       return state.filteredGratitudes
     })
 
+    // List with all itesm, sorted by date
     const gratitudeList = () =>
       state.filteredGratitudes.sort(
         (a, b) => b.data.timeStamp.toDate() - a.data.timeStamp.toDate()
       )
 
-
+    // Returns the date as words (eg. one day ago) until x-days ago
     const getReadableDate = (_date: Date): string => useDate().formatDateToWordsWithLimit(_date, 10)
 
+    // Select a date to only show items for that day
     const onDateSelection = (_date: Date): void => {
       state.filteredGratitudes = useGratitudeFilters().getGratitudesPerDay(_date)
       // Temp, delete this
       state.monthTemp = _date
     }
 
+    // Resets date selection
     const onResetDateSelection = (date: Date): void => {
       state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
       state.filteredGratitudes = gratitudeList()
     }
 
-
-    const update = () => {
+    // Update scroll position based on gyro
+    const updateScrollPosition = () => {
       const h = document.getElementById('app')
       const h2 = (h) ? h.clientHeight - window.innerHeight : 0
 
@@ -96,15 +95,16 @@ export default defineComponent({
       state.scrollTop += (state.beta / 100)
 
       // window.scrollTo(0, state.scrollTop)
-      requestAnimationFrame(update)
+      requestAnimationFrame(updateScrollPosition)
     }
 
-    // @to[do] Add Request Animation Fram
+    // Handle Gyro updates
     const handleChange = (val) => {
       state.beta = val
-      update()
+      updateScrollPosition()
     }
 
+    // Watch Gyro updates
     watch(state.orientation, (first, second) => {
       const { alpha, beta, gamma } = second
 
@@ -131,7 +131,6 @@ export default defineComponent({
     }
 
     return {
-      test,
       ...toRefs(state),
       // filtered,
       gratitudes,

@@ -23,10 +23,8 @@
     &.hasNoEntry {
       &:before {
         background-color: rgba(255, 255, 255, 0.8);
-        .number {
-          // color: #fff;
-        }
       }
+
       .datebar__icon--wrapper {
         display: none;
       }
@@ -36,7 +34,21 @@
       opacity: 0.3;
     }
 
-    .datebar__number{
+    &.active {
+
+      &:before {
+        background-color: color('accent');
+      }
+      svg {
+        stroke: color('white');
+      }
+
+      .datebar__number {
+        color: color('white');
+      }
+    }
+
+    .datebar__number {
       @include size($dateButtonSize);
       @include position(absolute);
       @include flex-center('horizontal');

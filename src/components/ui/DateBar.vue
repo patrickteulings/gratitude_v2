@@ -6,7 +6,7 @@
         v-for="weekday in weekdays"
         @click="selectDate(weekday)"
         :key="weekday"
-        class="datebar__item" :class="[isDateInFuture(weekday) ? 'future' : '', dayHasEntry(weekday) ? 'hasEntry': 'hasNoEntry']"
+        class="datebar__item" :class="[isDateInFuture(weekday) ? 'future' : '', dayHasEntry(weekday) ? 'hasEntry': 'hasNoEntry', (selectedDate === weekday) ? 'active' : '']"
         :title="getDefaultFormat(weekday)"
       >
         <div class="datebar__number" :class="dayHasEntry(weekday) ? 'hasEntry': 'hasNoEntry'">
@@ -92,8 +92,8 @@ export default defineComponent({
       const { emit } = context
 
       selectedDate.value = (selectedDate.value === date) ? null : date
-      console.log(selectedDate.value)
-      emit((selectedDate.value === date) ? 'resetDateSelection' : 'dateSelected', date)
+
+      emit((selectedDate.value === null) ? 'resetDateSelection' : 'dateSelected', date)
     }
 
     const weekdays = getWeekDays()
@@ -106,7 +106,8 @@ export default defineComponent({
       getDefaultFormat,
       getDayName,
       isDateInFuture,
-      selectDate
+      selectDate,
+      selectedDate
     }
   }
 })

@@ -1,7 +1,7 @@
 
 import { reactive, onMounted, toRefs } from 'vue'
 
-interface OState {
+interface State {
   absolute: boolean | null;
   alpha: number | null;
   beta: number | null;
@@ -9,7 +9,7 @@ interface OState {
 }
 
 export const useGyro = () => {
-  const state: OState = reactive({
+  const state: State = reactive({
     absolute: null,
     alpha: null,
     beta: null,
