@@ -1,0 +1,38 @@
+.contenteditableHeader {
+  @extend %headings;
+  @include font-size(56px);
+  @include innerspace(2rem, 0rem);
+  color: color('white');
+  background: none;
+  border: 0;
+  appearance: none;
+  line-height: 3rem;
+  overflow: hidden;
+
+  &:focus {
+    outline: none;
+  }
+
+  b {
+    font-weight: 700;
+  }
+
+  i {
+    font-style: italic;
+  }
+}
+
+.contenteditableBody {
+  @include font-size(18px);
+  @include innerspace(0rem, 0rem);
+  color: color('white');
+  background: none;
+  border: 0;
+  appearance: none;
+  line-height: 2rem;
+  overflow: hidden;
+
+  &:focus {
+    outline: none;
+  }
+}

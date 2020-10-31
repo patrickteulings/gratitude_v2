@@ -20,10 +20,12 @@ const routes: any[] = [
   {
     path: '/gratitude/detail/:id',
     name: 'gratitude/detail',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/gratitude/Detail.vue')
+    component: () => import('../views/gratitude/Detail.vue')
+  },
+  {
+    path: '/gratitude/addgratitude',
+    name: 'addgratitude',
+    component: () => import('../views/gratitude/AddGratitude.vue')
   }
 ]
 

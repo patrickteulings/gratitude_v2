@@ -32,15 +32,17 @@ import store from '@/store'
 // Composables
 import useDate from '@/use/useDate'
 
-// Interfaces
-import { GratitudeWrapper } from '@/types/Gratitude'
-
 export default defineComponent({
+  components: {
+
+  },
   setup () {
     const state = reactive({
+      data: 'gewoon een test',
       count: 0,
       selectedGratitude: null,
-      user: store.getters['userStore/getUser']
+      user: store.getters['userStore/getUser'],
+      value: 'een value'
     })
 
     const getGratitude = computed(() => {

@@ -1,15 +1,18 @@
 .gratitudeCard {
-  @include outerspace(1px, 1rem);
+  @include outerspace(0.5rem, 1rem);
 
   &__inner {
     @include innerspace(2rem, 1rem);
     padding-bottom: 0.5rem;
-    background-color: lighten(color('primary'), 5%);
+    // background-color: lighten(color('primary'), 25%);
+    background: #017A85;
     border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.5);
   }
 
   h1 {
     @include font-size(40px);
+    word-break: break-all;
   }
 
   .date {

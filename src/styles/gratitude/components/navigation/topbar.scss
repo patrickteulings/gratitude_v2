@@ -3,5 +3,5 @@
   justify-content: space-between;
   align-items: center;
   @include innerspace(1rem);
-  background-color: darken(color('primary'), 0%);
+  background-color: darken(#014B52, 5%);
 }

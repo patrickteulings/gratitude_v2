@@ -9,7 +9,7 @@ $paragraph-font-face: 'Noto Serif', serif;
 
 %headings {
   font-family: $heading-font-face-playfair;
-  font-weight: 400;
+  // font-weight: 400;
   margin-top: 0em;
   margin-bottom: 0.5em;
   color: color('white');
@@ -71,6 +71,12 @@ p {
   line-height: 1.6em;
   font-family: $heading-font-face-playfair;
   // font-weight: 200;
+}
+
+.paragraph {
+  margin: 0 0 1em 0;
+  line-height: 1.6em;
+  font-family: $heading-font-face-playfair;
 }
 
 $textsize: (

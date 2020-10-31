@@ -15,7 +15,7 @@
         </div>
         <span class="datebar__number--hidden-number">{{ getDefaultFormat(weekday) }}</span>
       </div>
-      <div class="number" :class="dayHasEntry(weekday) ? 'hasEntry': 'hasNoEntry'">
+      <div class="number">
         <div class="datebar__number">...</div>
       </div>
     </div>
@@ -27,6 +27,8 @@
 </template>
 
 <script lang="ts">
+// src/components/ui/DateBar.vue
+
 // Core
 import { defineComponent, computed, ref, SetupContext } from 'vue'
 import store from '@/store'

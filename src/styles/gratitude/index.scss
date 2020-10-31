@@ -9,6 +9,8 @@
   'components/datebar/datebar',
   'components/hero/homepage-hero',
   'components/gratitude/gratitude',
+  'components/gratitude/addGratitude',
+  'components/gratitude/contenteditable',
   'components/add/addGratitude',
   'components/weather/weather',
   'components/user/user',
@@ -28,7 +30,7 @@
 body, html {
   width: 100%;
   height: 100%;
-  background-color: color('primary');
+  background-color: darken(#014B52, 5%);
   color: color('white');
   font-family: $primary-font-face;
   // overflow-x: hidden;
