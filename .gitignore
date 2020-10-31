@@ -22,3 +22,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 src/config/google.ts
+src/config/firebaseConfigTypeScript.ts
