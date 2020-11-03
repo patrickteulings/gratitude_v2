@@ -14,3 +14,17 @@ export interface GratitudeWrapper {
   data: Gratitude;
 }
 
+interface Longname {
+  long_name: string;
+}
+
+export interface Addresscomponents {
+  address_components: Array<Longname>;
+}
+
+
+export interface Response {
+  plus_code?: any | null;
+  results: Array<Addresscomponents> | null;
+  status: string | null;
+}

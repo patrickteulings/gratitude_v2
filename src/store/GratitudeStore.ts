@@ -4,12 +4,14 @@ import { Gratitude } from '@/types/Gratitude'
 
 const ADD_MULTIPLE_GRATITUDES = 'ADD_MULTIPLE_GRATITUDES'
 const ADD_GRATITUDE = 'ADD_GRATITUDE'
+const SET_CURRENT_LOCATION = 'SET_CURRENT_LOCATION'
 
 export const GratitudeStore = {
   namespaced: true,
   state: reactive({
     user: null,
-    gratitudes: []
+    gratitudes: [],
+    location: null
   }),
 
 
@@ -19,6 +21,10 @@ export const GratitudeStore = {
     },
     ADD_GRATITUDE: (state: any, payload: Gratitude) => {
       state.gratitudes.push(payload)
+    },
+    SET_CURRENT_LOCATION: (state: any, payload: Gratitude) => {
+      console.log('SET_CURRENT_LOCATION')
+      // state.gratitudes.push(payload)
     }
   },
 
@@ -57,6 +63,12 @@ export const GratitudeStore = {
     addSingleGratitude: (context, gratitude: Gratitude): void => {
       const { state, commit } = context
       commit(ADD_GRATITUDE, gratitude)
+    },
+
+    setLocation: (context, location): void => {
+      const { state, commit } = context
+      console.log('STORE', location)
+      // commit(SET_CURRENT_LOCATION)
     }
   },
 

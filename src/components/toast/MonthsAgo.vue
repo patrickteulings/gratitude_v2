@@ -1,7 +1,7 @@
 <template>
   <div class="monthAgo" v-if="pastEntries.length">
     <div class="monthAgo__inner">
-      <h5 style="color: white;" >Lookback at your entries from one month ago</h5>
+      <h5 style="color: white;">Lookback at your entries from one month ago</h5>
       <div v-for="(gratitude) in pastEntries" :key="gratitude.id" @click="handleClick(gratitude)">
         <small>{{ getDate(gratitude.data.timeStamp) }}</small>
         <h3 style="color: #C6C150">{{ gratitude.data.title }}</h3>

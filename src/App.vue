@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <top-bar />
+    <div v-if="response.results">
+      {{ response.results[9].address_components[0].long_name }}
+    </div>
+    {{ locationLoading }} {{ msg }} {{ latitude }} {{ longitude }}
     <div v-if="loading">
       <SplashScreen />
     </div>
@@ -20,7 +24,8 @@
 
 <script lang="ts">
 // Core
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, watch } from 'vue'
+import store from '@/store/index'
 
 // Components
 import TopBar from '@/components/navigation/TopBar.vue'
@@ -30,16 +35,40 @@ import SplashScreen from '@/components/splash/SplashScreen.vue'
 // Composables
 import { useLogin } from '@/use/auth/useLogin'
 import useAuth from '@/use/auth/useAuth'
-
+import useLocation from '@/use/useLocation'
+import { Response } from '@/types/Gratitude'
+import { Location } from '@/types/Location'
 // Setup
 export default defineComponent({
   setup () {
     const { user, loading, error } = useAuth()
     const loginState = useLogin()
+    const { latitude, longitude, msg, response, locationLoading = false } = useLocation()
+
+    // Watch Gyro updates
+    watch([response, latitude], ([first, firstLat], [second, sencondLat]) => {
+      if (response !== null) {
+        const resp = response.value as Response
+        let cityName = ''
+        if (resp.results) {
+          cityName = resp.results[9].address_components[0].long_name
+        }
+        const location = { coordinates: { latitude: latitude.value, longitude: longitude.value }, city: cityName }
+        store.dispatch('gratitudeStore/setLocation', location)
+      }
+      if (latitude !== null) {
+        console.log('latitude!!!!', latitude.value)
+      }
+    })
 
     return {
       user,
       loading,
+      latitude,
+      longitude,
+      response,
+      msg,
+      locationLoading,
       error: computed(() => (loginState.error || error).value),
       logout: loginState.logout
     }

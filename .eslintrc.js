@@ -1,26 +1,54 @@
 module.exports = {
-  root: true,
-  env: {
+  'root': true,
+
+  'env': {
     node: true
   },
-  extends: [
+
+  'extends': [
     'plugin:vue/vue3-essential',
     '@vue/standard',
     '@vue/typescript/recommended'
   ],
-  parserOptions: {
+
+  'parserOptions': {
     ecmaVersion: 2020
   },
-  rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'space-before-function-paren': ["error", "always"],
-    'func-call-spacing': ["error", "never"],
-    'no-multiple-empty-lines': ["error", { "max": 2, "maxEOF": 0 }],
-    'quotes': ["error", "single", { "allowTemplateLiterals": true }],
-    'quote-props': ["error", "consistent"]
+
+  'rules': {
+    'no-console': 'off',
+    'no-debugger': 'off',
+    'space-before-function-paren': [
+      'error',
+      'always'
+    ],
+    'func-call-spacing': [
+      'error',
+      'never'
+    ],
+    'no-multiple-empty-lines': [
+      'error',
+      {
+        max: 2,
+        maxEOF: 0
+      }
+    ],
+    "interface-name-prefix": [true, "always-prefix"],
+    'quotes': [
+      'error',
+      'single',
+      {
+        allowTemplateLiterals: true
+      }
+    ],
+    'quote-props': [
+      'error',
+      'consistent'
+    ],
+    'vue/html-closing-bracket-spacing': 'warn'
   },
-  overrides: [
+
+  'overrides': [
     {
       files: [
         '**/__tests__/*.{j,t}s?(x)',
@@ -30,5 +58,11 @@ module.exports = {
         jest: true
       }
     }
+  ],
+
+  'extends': [
+    'plugin:vue/vue3-essential',
+    '@vue/standard',
+    '@vue/typescript/recommended'
   ]
 }

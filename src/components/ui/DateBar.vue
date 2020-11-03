@@ -11,7 +11,7 @@
       >
         <div class="datebar__number" :class="dayHasEntry(weekday) ? 'hasEntry': 'hasNoEntry'">
           <div class="datebar__number--number">{{ getDayName(weekday) }}</div>
-          <div class="datebar__icon--wrapper"><Icon class="datebar__icon" :iconProperties="{name: 'check', size: '16', strokeColor: '#9CB210', strokeWidth: 2}"/></div>
+          <div class="datebar__icon--wrapper"><Icon class="datebar__icon" :iconProperties="{name: 'check', size: '16', strokeColor: '#9CB210', strokeWidth: 2}" /></div>
         </div>
         <span class="datebar__number--hidden-number">{{ getDefaultFormat(weekday) }}</span>
       </div>
@@ -21,7 +21,7 @@
     </div>
   </div>
   <div style="padding: 1rem;">
-    <h5 style="color: white;" >Hi Patrick</h5>
+    <h5 style="color: white;">Hi Patrick</h5>
     <p>You've done some amazing things this week</p>
   </div>
 </template>

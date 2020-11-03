@@ -7,12 +7,12 @@
     </section>
     <section class="addGratitude__title">
       <div class="section__inner">
-        <ContentEditable className="contenteditableHeader" @update-content="handleTitleUpdate"/>
+        <ContentEditable className="contenteditableHeader" @update-content="handleTitleUpdate" />
       </div>
     </section>
     <section class="addGratitude__body">
       <div class="section__inner">
-        <ContentEditable className="contenteditableBody paragraph" @update-content="handleBodyUpdate"/>
+        <ContentEditable className="contenteditableBody paragraph" @update-content="handleBodyUpdate" />
       </div>
     </section>
     <section class="addGratitude__actions">
@@ -20,7 +20,6 @@
         <button @click="submitNewGratitude()">submit</button>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -40,6 +39,7 @@ export default defineComponent({
   components: {
     ContentEditable
   },
+
   setup () {
     const state = reactive({
       mood: [{ label: 'Happy', colorValue: '#D996C7' }, { label: 'Strong', colorValue: '#C6C150' }, { label: 'Hard times but learning', colorValue: '#942C3F' }, { label: 'Pretty ok', colorValue: '#68B2D0' }], // Move to user-store!!
@@ -58,10 +58,12 @@ export default defineComponent({
       state.body = content
     }
 
+    // Let's save this to Firestore
     const submitNewGratitude = () => {
       console.log('adasda')
     }
 
+    // Well, get the formatted date
     const getDate = (): string => useDate().getDefaultFormat(new Date())
 
     onMounted(() => {
