@@ -34,6 +34,7 @@ import useDate from '@/use/useDate'
 
 // Components
 import ContentEditable from '@/components/contenteditable/Contenteditable.vue'
+import { IGratitude } from '@/types/Gratitude'
 
 export default defineComponent({
   components: {
@@ -60,7 +61,15 @@ export default defineComponent({
 
     // Let's save this to Firestore
     const submitNewGratitude = () => {
-      console.log('adasda')
+      const newGratitude: IGratitude = {
+        title: state.title,
+        body: state.body,
+        location: store.getters['gratitudeStore/getLocation'],
+        timeStamp: new Date(),
+        dayStamp: useDate().getDayStamp(),
+        weather: {}
+      }
+      console.log('adasda', newGratitude)
     }
 
     // Well, get the formatted date

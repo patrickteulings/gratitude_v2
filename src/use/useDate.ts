@@ -35,13 +35,19 @@ export const useDate = () => {
     return startOfWeek(date, { weekStartsOn: 1 })
   }
 
+  // returns the day's name in short format (mon, tue etc)
   const getDayName = (_date: Date) => format(_date, 'eee')
 
   // Returns the app's default format (UK)
   const getDefaultFormat = (date: Date): string => format(date, 'eee do MMM yyyy')
 
+  // Return the date at the start of day (00:00hrs)
+  const getDayStamp = (_date: Date = new Date()): Date => {
+    return new Date(_date.setHours(0, 0, 0, 0))
+  }
+
+  // Simple check to see if a date is in the future (uses Date-fns)
   const isDateInFuture = (date: Date) => {
-    // console.log(date, isFuture(date))
     return isFuture(date)
   }
 
@@ -53,6 +59,7 @@ export const useDate = () => {
     getStartOfWeek,
     getDefaultFormat,
     getDayName,
+    getDayStamp,
     isDateInFuture
   }
 }

@@ -34,7 +34,6 @@ export const GratitudeStore = {
   actions: {
     // loadGratitudes: (context: any, user: any): Promise<firebase.firestore.QuerySnapshot> => {
     loadGratitudes: (context: any, user: any): void => {
-      console.log('user', user)
       const { commit } = context
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').get()
 
@@ -45,32 +44,26 @@ export const GratitudeStore = {
               data: item.data(),
               id: item.id
             })
-          // context.dispatch('addSingleGratitude', {
-          //   data: item.data(),
-          //   id: item.id
-          // })
         })
       })
     },
     loadGratitudesPromise: (context: any, user: any) => {
-      const { commit } = context
       const ref = db.collection('users').doc(user.uid).collection('gratitudes')
       return ref.get()
     },
 
     addGratitudes: (context, gratitudes: Array<IGratitude>): void => {
-      const { state, commit } = context
+      const { commit } = context
       commit(ADD_MULTIPLE_GRATITUDES, gratitudes)
     },
 
     addSingleGratitude: (context, gratitude: IGratitude): void => {
-      const { state, commit } = context
+      const { commit } = context
       commit(ADD_GRATITUDE, gratitude)
     },
 
     setLocation: (context, location: ILocation): void => {
-      const { state, commit } = context
-      console.log('STORE', location)
+      const { commit } = context
       commit(SET_CURRENT_LOCATION, location)
     }
   },
@@ -78,6 +71,9 @@ export const GratitudeStore = {
   getters: {
     getGratitudes: (state) => {
       return state.gratitudes
+    },
+    getLocation: (state): ILocation => {
+      return state.location
     }
   }
 }

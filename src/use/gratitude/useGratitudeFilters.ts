@@ -6,7 +6,7 @@ import isSameDay from 'date-fns/isSameDay'
 import subMonths from 'date-fns/subMonths'
 
 // Interfaces
-import { IGratitude, IGratitudeWrapper } from '@/types/Gratitude'
+import { IGratitudeWrapper } from '@/types/Gratitude'
 
 export const useGratitudeFilters = () => {
   const allGratitudes: Array<IGratitudeWrapper> = store.getters['gratitudeStore/getGratitudes']
