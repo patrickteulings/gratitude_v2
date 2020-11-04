@@ -18,7 +18,7 @@ import useGratitudeFilters from '@/use/gratitude/useGratitudeFilters'
 import useDate from '@/use/useDate'
 
 // Interfaces
-import { Gratitude, GratitudeWrapper } from '@/types/Gratitude'
+import { IGratitude, IGratitudeWrapper } from '@/types/Gratitude'
 
 export default defineComponent({
   props: {
@@ -29,10 +29,10 @@ export default defineComponent({
   },
   setup (props, { emit }: SetupContext) {
     const propsDate = ref(new Date(props.currentDate))
-    const pastEntries = ref<GratitudeWrapper[]>([])
+    const pastEntries = ref<IGratitudeWrapper[]>([])
     const getDate = (date): string => useDate().getDefaultFormat(date.toDate())
 
-    const handleClick = (gratitude: GratitudeWrapper): void => {
+    const handleClick = (gratitude: IGratitudeWrapper): void => {
       emit('onclicked', gratitude)
     }
 

@@ -1,4 +1,4 @@
-export interface Gratitude {
+export interface IGratitude {
   body: string;
   color?: string;
   mood?: string;
@@ -9,22 +9,22 @@ export interface Gratitude {
   location: object;
 }
 
-export interface GratitudeWrapper {
+export interface IGratitudeWrapper {
   id: string;
-  data: Gratitude;
+  data: IGratitude;
 }
 
-interface Longname {
+interface ILongname {
   long_name: string;
 }
 
-export interface Addresscomponents {
-  address_components: Array<Longname>;
+export interface IAddresscomponents {
+  address_components: Array<ILongname>;
 }
 
 
-export interface Response {
+export interface IResponse {
   plus_code?: any | null;
-  results: Array<Addresscomponents> | null;
+  results: Array<IAddresscomponents> | null;
   status: string | null;
 }

@@ -6,12 +6,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { IconProps } from '@/types/Icon'
+import { IIconProps } from '@/types/Icon'
 
 export default defineComponent({
   props: {
     iconProperties: {
-      type: Object as PropType<IconProps>,
+      type: Object as PropType<IIconProps>,
       required: true
     }
   },

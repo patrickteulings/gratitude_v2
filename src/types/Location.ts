@@ -1,8 +1,8 @@
-interface Coords {
+interface ICoords {
   latitude: number;
   longitude: number;
 }
-export interface Location {
-  coordinates: Coords;
+export interface ILocation {
+  coordinates: ICoords;
   city: string;
 }

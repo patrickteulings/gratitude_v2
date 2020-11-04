@@ -40,7 +40,7 @@ import Icon from '@/components/ui/Icon.vue'
 import { useDate } from '@/use/useDate'
 
 // Interfaces
-import { Gratitude } from '@/types/Gratitude'
+import { IGratitude } from '@/types/Gratitude'
 
 // Third Party
 import isSameDay from 'date-fns/isSameDay'
@@ -69,7 +69,7 @@ export default defineComponent({
     const selectedDate = ref<Date | null>()
 
     const allGratitudes = computed(() => {
-      const gratitudes: Array<Gratitude> = store.getters['gratitudeStore/getGratitudes']
+      const gratitudes: Array<IGratitude> = store.getters['gratitudeStore/getGratitudes']
 
       return gratitudes.length ? gratitudes : []
     })

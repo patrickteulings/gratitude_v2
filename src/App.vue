@@ -36,8 +36,8 @@ import SplashScreen from '@/components/splash/SplashScreen.vue'
 import { useLogin } from '@/use/auth/useLogin'
 import useAuth from '@/use/auth/useAuth'
 import useLocation from '@/use/useLocation'
-import { Response } from '@/types/Gratitude'
-import { Location } from '@/types/Location'
+import { IResponse } from '@/types/Gratitude'
+import { ILocation } from '@/types/Location'
 // Setup
 export default defineComponent({
   setup () {
@@ -48,7 +48,7 @@ export default defineComponent({
     // Watch Gyro updates
     watch([response, latitude], ([first, firstLat], [second, sencondLat]) => {
       if (response !== null) {
-        const resp = response.value as Response
+        const resp = response.value as IResponse
         let cityName = ''
         if (resp.results) {
           cityName = resp.results[9].address_components[0].long_name

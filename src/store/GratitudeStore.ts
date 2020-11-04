@@ -1,6 +1,9 @@
 import { reactive } from 'vue'
 import { db } from '@/config/firebaseConfigTypeScript'
-import { Gratitude } from '@/types/Gratitude'
+
+// Types.Interfaces
+import { IGratitude } from '@/types/Gratitude'
+import { ILocation } from '@/types/Location'
 
 const ADD_MULTIPLE_GRATITUDES = 'ADD_MULTIPLE_GRATITUDES'
 const ADD_GRATITUDE = 'ADD_GRATITUDE'
@@ -16,15 +19,15 @@ export const GratitudeStore = {
 
 
   mutations: {
-    ADD_MULTIPLE_GRATITUDES: (state: any, payload: Array<Gratitude>) => {
+    ADD_MULTIPLE_GRATITUDES: (state: any, payload: Array<IGratitude>) => {
       console.log(state.gratitudes)
     },
-    ADD_GRATITUDE: (state: any, payload: Gratitude) => {
+    ADD_GRATITUDE: (state: any, payload: IGratitude) => {
       state.gratitudes.push(payload)
     },
-    SET_CURRENT_LOCATION: (state: any, payload: Gratitude) => {
+    SET_CURRENT_LOCATION: (state: any, payload: ILocation) => {
       console.log('SET_CURRENT_LOCATION')
-      // state.gratitudes.push(payload)
+      state.location = payload
     }
   },
 
@@ -55,20 +58,20 @@ export const GratitudeStore = {
       return ref.get()
     },
 
-    addGratitudes: (context, gratitudes: Array<Gratitude>): void => {
+    addGratitudes: (context, gratitudes: Array<IGratitude>): void => {
       const { state, commit } = context
       commit(ADD_MULTIPLE_GRATITUDES, gratitudes)
     },
 
-    addSingleGratitude: (context, gratitude: Gratitude): void => {
+    addSingleGratitude: (context, gratitude: IGratitude): void => {
       const { state, commit } = context
       commit(ADD_GRATITUDE, gratitude)
     },
 
-    setLocation: (context, location): void => {
+    setLocation: (context, location: ILocation): void => {
       const { state, commit } = context
       console.log('STORE', location)
-      // commit(SET_CURRENT_LOCATION)
+      commit(SET_CURRENT_LOCATION, location)
     }
   },
 

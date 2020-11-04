@@ -1,8 +1,8 @@
 import { toRefs, reactive } from 'vue'
-import { Response } from '@/types/Gratitude'
+import { IResponse } from '@/types/Gratitude'
 
-interface State {
-  response: Response;
+interface IState {
+  response: IResponse;
   fetchError: boolean | null;
   fetching: boolean;
 }
@@ -10,7 +10,7 @@ interface State {
 
 export default function () {
   // our reactive properties...
-  const state: State = reactive({
+  const state: IState = reactive({
     response: { results: null, status: null },
     fetchError: null,
     fetching: true

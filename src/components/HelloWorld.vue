@@ -22,7 +22,7 @@ import MonthsAgo from '@/components/toast/MonthsAgo.vue'
 // Composables
 import useDate from '@/use/useDate'
 import useGratitudeFilters from '@/use/gratitude/useGratitudeFilters'
-import { GratitudeWrapper, Gratitude } from '@/types/Gratitude'
+import { IGratitudeWrapper, IGratitude } from '@/types/Gratitude'
 import { useGyro } from '@/use/useGyro'
 
 // Interfaces
@@ -44,7 +44,7 @@ export default defineComponent({
 
   setup () {
     const state = reactive({
-      filteredGratitudes: [] as Array<GratitudeWrapper>,
+      filteredGratitudes: [] as Array<IGratitudeWrapper>,
       monthTemp: new Date(),
       orientation: useGyro(),
       scrollTop: 0,
@@ -117,7 +117,7 @@ export default defineComponent({
 
       store.dispatch('gratitudeStore/loadGratitudesPromise', user.value).then((result: firebase.firestore.QuerySnapshot) => {
         result.forEach((item: firebase.firestore.DocumentData) => {
-          const what: GratitudeWrapper = { data: item.data(), id: item.id }
+          const what: IGratitudeWrapper = { data: item.data(), id: item.id }
 
           state.filteredGratitudes.push(what)
           store.dispatch('gratitudeStore/addSingleGratitude', what)
@@ -126,7 +126,7 @@ export default defineComponent({
       })
     })
 
-    const goToDetailPage = (gratitude: GratitudeWrapper): void => {
+    const goToDetailPage = (gratitude: IGratitudeWrapper): void => {
       router.push({ name: 'gratitude/detail', params: { id: gratitude.id } })
     }
 

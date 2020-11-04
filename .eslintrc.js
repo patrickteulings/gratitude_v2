@@ -33,7 +33,6 @@ module.exports = {
         maxEOF: 0
       }
     ],
-    "interface-name-prefix": [true, "always-prefix"],
     'quotes': [
       'error',
       'single',
@@ -45,7 +44,20 @@ module.exports = {
       'error',
       'consistent'
     ],
-    'vue/html-closing-bracket-spacing': 'warn'
+    'vue/html-closing-bracket-spacing': 'warn',
+    "@typescript-eslint/interface-name-prefix": [ "error", { "prefixWithI": "always" }],
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          "selector": "interface",
+          "format": ["PascalCase"],
+          "custom": {
+            "regex": "^I[A-Z]",
+            "match": true
+          }
+        }
+      ]
+
   },
 
   'overrides': [

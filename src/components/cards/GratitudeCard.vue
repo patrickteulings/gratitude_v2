@@ -12,7 +12,7 @@
 import { defineComponent, PropType, Prop, toRef, toRefs } from 'vue'
 
 // Components
-import { Gratitude, GratitudeWrapper } from '@/types/Gratitude'
+import { IGratitude, IGratitudeWrapper } from '@/types/Gratitude'
 
 
 // Composables
@@ -21,13 +21,13 @@ import { useDate } from '@/use/useDate'
 export default defineComponent({
   props: {
     gratitudeData: {
-      type: Object as PropType<GratitudeWrapper>,
+      type: Object as PropType<IGratitudeWrapper>,
       required: true
     }
   },
 
   setup (props) {
-    const getGratitudeData = (): Gratitude => {
+    const getGratitudeData = (): IGratitude => {
       return { ...props.gratitudeData.data }
     }
 
