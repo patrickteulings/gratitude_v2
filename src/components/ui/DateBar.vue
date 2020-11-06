@@ -79,6 +79,7 @@ export default defineComponent({
       const gratitudes = store.getters['gratitudeStore/getGratitudes']
 
       gratitudes.map((gratitude) => {
+        console.log(gratitude)
         const dayStamp = gratitude.data.dayStamp.toDate()
         if (isSameDay(date, dayStamp)) isSameDate = true
       })

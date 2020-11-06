@@ -1,3 +1,5 @@
+import { IUser } from '@/types/UserType'
+
 export interface IGratitude {
   body: string;
   color?: string;
@@ -7,6 +9,7 @@ export interface IGratitude {
   title: string;
   weather: object;
   location: object;
+  user?: IUser;
 }
 
 export interface IGratitudeWrapper {

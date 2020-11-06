@@ -1,8 +1,10 @@
 <template>
   <div class="hello">
-    <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection" />
-    <MonthsAgo :currentDate="monthTemp" @onclicked="goToDetailPage" />
-    <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)" />
+    <div class="home--wrapper">
+      <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection" />
+      <MonthsAgo :currentDate="monthTemp" @onclicked="goToDetailPage" />
+      <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)" />
+    </div>
     <div v-if="filteredGratitudes.length">yes, gevonden
     </div><div v-else>Not yet</div>
   </div>
@@ -146,6 +148,10 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.home--wrapper {
+  margin-top: 10vh;
+}
+
 h3 {
   margin: 40px 0 0;
 }

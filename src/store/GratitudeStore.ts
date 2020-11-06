@@ -2,17 +2,17 @@ import { reactive } from 'vue'
 import { db } from '@/config/firebaseConfigTypeScript'
 
 // Types.Interfaces
-import { IGratitude } from '@/types/Gratitude'
+import { IGratitude, IGratitudeWrapper } from '@/types/Gratitude'
 import { ILocation } from '@/types/Location'
 
 const ADD_MULTIPLE_GRATITUDES = 'ADD_MULTIPLE_GRATITUDES'
 const ADD_GRATITUDE = 'ADD_GRATITUDE'
 const SET_CURRENT_LOCATION = 'SET_CURRENT_LOCATION'
+const SAVE_GRATITUDE = 'SAVE_GRATITUDE'
 
 export const GratitudeStore = {
   namespaced: true,
   state: reactive({
-    user: null,
     gratitudes: [],
     location: null
   }),
@@ -22,9 +22,31 @@ export const GratitudeStore = {
     ADD_MULTIPLE_GRATITUDES: (state: any, payload: Array<IGratitude>) => {
       console.log(state.gratitudes)
     },
+
     ADD_GRATITUDE: (state: any, payload: IGratitude) => {
       state.gratitudes.push(payload)
     },
+
+    SAVE_GRATITUDE: (state, payload: IGratitude) => {
+      // console.log('trying', state.rootState.userStore.user)
+      // state.gratitudes.push(payload)
+      const userID = (payload.user !== undefined) ? payload.user.uid : ''
+      const ref = db.collection('users').doc(userID).collection('gratitudes')
+
+      if (userID === '') return
+
+      ref.add(payload).then((response: firebase.firestore.DocumentReference) => {
+        const getRef = db.collection('users').doc(userID).collection('gratitudes').doc(response.id).get().then((result: firebase.firestore.DocumentData) => {
+          const gratitudeWrapper: IGratitudeWrapper = { id: result.id, data: result.data() }
+          state.gratitudes.push(gratitudeWrapper)
+        })
+      }).catch((error) => {
+        console.error('Error writing document: ', error)
+      }).finally(() => {
+        console.log('SAVE_GRATITUDE: finally')
+      })
+    },
+
     SET_CURRENT_LOCATION: (state: any, payload: ILocation) => {
       console.log('SET_CURRENT_LOCATION')
       state.location = payload
@@ -35,7 +57,7 @@ export const GratitudeStore = {
     // loadGratitudes: (context: any, user: any): Promise<firebase.firestore.QuerySnapshot> => {
     loadGratitudes: (context: any, user: any): void => {
       const { commit } = context
-      const ref = db.collection('users').doc(user.uid).collection('gratitudes').get()
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').limit(20).get()
 
       ref.then((result: firebase.firestore.QuerySnapshot) => {
         result.forEach((item: firebase.firestore.DocumentData) => {
@@ -47,8 +69,9 @@ export const GratitudeStore = {
         })
       })
     },
+
     loadGratitudesPromise: (context: any, user: any) => {
-      const ref = db.collection('users').doc(user.uid).collection('gratitudes')
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').limit(20)
       return ref.get()
     },
 
@@ -65,6 +88,11 @@ export const GratitudeStore = {
     setLocation: (context, location: ILocation): void => {
       const { commit } = context
       commit(SET_CURRENT_LOCATION, location)
+    },
+
+    saveGratitude: (context, gratitude: IGratitude): void => {
+      const { commit, rootGetters } = context
+      commit(SAVE_GRATITUDE, gratitude)
     }
   },
 

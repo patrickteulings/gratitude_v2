@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @keyup="handleKeyUp" :class="[equalToPlaceHolder ? 'placeholder' : '', getClassname()]" contenteditable="true" v-html="content"></div>
+    <div @keyup="handleKeyUp" @keydown="handleKeyDown" :class="[equalToPlaceHolder ? 'placeholder' : '', getClassname()]" contenteditable="true" v-html="content"></div>
   </div>
 </template>
 
@@ -25,6 +25,12 @@ const ContentEditable = defineComponent({
       return props.className
     }
 
+    const handleKeyDown = (e: { target: HTMLInputElement }): void => {
+      const el: HTMLInputElement = e.target
+      console.log(el.innerText)
+      if (el.innerText === beasty.value) el.innerHTML = ''
+    }
+
     // Handles placeholder text and classnames
     // Beware!! Only do this on KeyUp because of scrolling glitches on keydown
     const handleKeyUp = (e: { target: HTMLInputElement }): void => {
@@ -32,7 +38,6 @@ const ContentEditable = defineComponent({
 
       // Reset to placeholder if no text is entered
       if (!el.innerText.length) el.innerText = beasty.value
-
       // handles classname if there is / is not any text / placeholder
       equalToPlaceHolder.value = (el.innerText === beasty.value)
 
@@ -47,6 +52,7 @@ const ContentEditable = defineComponent({
     return {
       beasty,
       handleKeyUp,
+      handleKeyDown,
       content,
       equalToPlaceHolder,
       getClassname

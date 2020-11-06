@@ -36,6 +36,9 @@ import useDate from '@/use/useDate'
 import ContentEditable from '@/components/contenteditable/Contenteditable.vue'
 import { IGratitude } from '@/types/Gratitude'
 
+// Interfaces
+import { IUser } from '@/types/UserType'
+
 export default defineComponent({
   components: {
     ContentEditable
@@ -67,9 +70,11 @@ export default defineComponent({
         location: store.getters['gratitudeStore/getLocation'],
         timeStamp: new Date(),
         dayStamp: useDate().getDayStamp(),
-        weather: {}
+        weather: {},
+        user: state.user
       }
-      console.log('adasda', newGratitude)
+      // Save to firebase
+      store.dispatch('gratitudeStore/saveGratitude', newGratitude)
     }
 
     // Well, get the formatted date

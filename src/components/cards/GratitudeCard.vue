@@ -35,7 +35,7 @@ export default defineComponent({
 
     const getDateStyle = (_gratitude) => {
       const styleObj = {
-        color: _gratitude.color || '#ff9900'
+        color: _gratitude.color || '#2FD9D9'
       }
 
       return styleObj
