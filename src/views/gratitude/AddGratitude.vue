@@ -15,6 +15,11 @@
         <ContentEditable className="contenteditableBody paragraph" @update-content="handleBodyUpdate" />
       </div>
     </section>
+    <section class="addGratitude__dropdown">
+      <div class="section__inner">
+        <drop-down :listData="mood"></drop-down>
+      </div>
+    </section>
     <section class="addGratitude__actions">
       <div class="section__inner">
         <button @click="submitNewGratitude()">submit</button>
@@ -34,24 +39,26 @@ import useDate from '@/use/useDate'
 
 // Components
 import ContentEditable from '@/components/contenteditable/Contenteditable.vue'
-import { IGratitude } from '@/types/Gratitude'
+import DropDown from '@/components/ui/DropDown.vue'
 
 // Interfaces
 import { IUser } from '@/types/UserType'
+import { IGratitude } from '@/types/Gratitude'
 
 export default defineComponent({
   components: {
-    ContentEditable
+    ContentEditable,
+    DropDown
   },
 
   setup () {
     const state = reactive({
-      mood: [{ label: 'Happy', colorValue: '#D996C7' }, { label: 'Strong', colorValue: '#C6C150' }, { label: 'Hard times but learning', colorValue: '#942C3F' }, { label: 'Pretty ok', colorValue: '#68B2D0' }], // Move to user-store!!
+      mood: store.getters['moodStore/getMoods'],
       user: store.getters['userStore/getUser'],
       title: '',
       body: ''
     })
-
+    console.log('moods', store.getters['moodStore/getMoods'])
     // Handle emitted new Title text from ContentEditable
     const handleTitleUpdate = (content: string): void => {
       state.title = content

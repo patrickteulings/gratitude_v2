@@ -71,7 +71,7 @@ export const GratitudeStore = {
     },
 
     loadGratitudesPromise: (context: any, user: any) => {
-      const ref = db.collection('users').doc(user.uid).collection('gratitudes').limit(20)
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').orderBy('timeStamp', 'desc').limit(20)
       return ref.get()
     },
 

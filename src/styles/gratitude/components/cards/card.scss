@@ -10,7 +10,22 @@
     box-shadow: 0 3px 6px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.5);
   }
 
-  h1 {
+  &__body {
+    @extend .paragraph;
+
+    // We need to make font-styles explicit for every font-style as these HTML tags are
+    // added on the fly to our contenteditable field and not rerendered
+
+    b {
+      font-weight: 700;
+    }
+
+    i {
+      font-style: italic;
+    }
+  }
+
+  &__title {
     @include font-size(40px);
     word-break: break-all;
   }

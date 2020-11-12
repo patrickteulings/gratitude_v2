@@ -2,7 +2,7 @@ import { toRefs, reactive } from 'vue'
 import useGeoLocationApi from '@/use/useGeolocationApi'
 import { GOOGLE_API_KEY } from '@/config/google'
 
-interface State {
+interface IState {
   msg: string | null;
   locationLoading: boolean;
   error: boolean | null;
@@ -14,7 +14,7 @@ interface State {
 
 export default function () {
   // our reactive properties...
-  const state: State = reactive({
+  const state: IState = reactive({
     msg: null,
     locationLoading: true,
     status: '',
@@ -36,7 +36,7 @@ export default function () {
 
 
   const error = (position: PositionError) => {
-    console.log(position)
+    console.log(position, fetching, fetchError)
     state.locationLoading = false
     state.error = true
   }

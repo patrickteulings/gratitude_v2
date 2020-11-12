@@ -11,7 +11,7 @@
       >
         <div class="datebar__number" :class="dayHasEntry(weekday) ? 'hasEntry': 'hasNoEntry'">
           <div class="datebar__number--number">{{ getDayName(weekday) }}</div>
-          <div class="datebar__icon--wrapper"><Icon class="datebar__icon" :iconProperties="{name: 'check', size: '16', strokeColor: '#9CB210', strokeWidth: 2}" /></div>
+          <div class="datebar__icon--wrapper"><Icon class="datebar__icon" :iconProperties="{name: 'shield', size: '16', strokeColor: '#9CB210', strokeWidth: 2}" /></div>
         </div>
         <span class="datebar__number--hidden-number">{{ getDefaultFormat(weekday) }}</span>
       </div>
@@ -79,7 +79,6 @@ export default defineComponent({
       const gratitudes = store.getters['gratitudeStore/getGratitudes']
 
       gratitudes.map((gratitude) => {
-        console.log(gratitude)
         const dayStamp = gratitude.data.dayStamp.toDate()
         if (isSameDay(date, dayStamp)) isSameDate = true
       })

@@ -1,13 +1,17 @@
 <template>
   <div class="view detail">
-    <section class="detail detail__title">
+    <section class="detail">
+      <div class="section__inner">
+        <div class="detail__date" v-if="getGratitude" :style="{'color': getMood(getGratitude)}">
+          {{ getDate(getGratitude) }}
+        </div>
+      </div>
+    </section>
+    <section class="section detail__title">
       <div class="section__inner">
         <h1 v-if="getGratitude">
           {{ getGratitude.data.title }}
         </h1>
-        <div class="detail__date" v-if="getGratitude" :style="{'color': getMood(getGratitude)}">
-          {{ getDate(getGratitude) }}
-        </div>
       </div>
     </section>
     <section class="section detail__body">

@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
-import { SetupContext } from 'vue'
 import { UserStore } from '@/store/UserStore.ts'
 import { GratitudeStore } from '@/store/GratitudeStore.ts'
+import { MoodStore } from '@/store/MoodStore.ts'
+import { HabitStore } from '@/store/HabitStore.ts'
 
 export default createStore({
   state: {
@@ -13,6 +14,8 @@ export default createStore({
   },
   modules: {
     userStore: UserStore,
-    gratitudeStore: GratitudeStore
+    gratitudeStore: GratitudeStore,
+    moodStore: MoodStore,
+    habitStore: HabitStore
   }
 })

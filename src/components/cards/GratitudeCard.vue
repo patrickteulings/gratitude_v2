@@ -2,8 +2,8 @@
   <div class="gratitudeCard">
     <div class="gratitudeCard__inner">
       <small class="date" :style="getDateStyle(gratitude)">{{ getReadableDate(gratitude.timeStamp.toDate()) }}</small>
-      <h1>{{ gratitude.title }}</h1>
-      <p>{{ gratitude.body }}</p>
+      <h1 class="gratitudeCard__title">{{ gratitude.title }}</h1>
+      <div class="gratitudeCard__body" v-html="gratitude.body"></div>
     </div>
   </div>
 </template>

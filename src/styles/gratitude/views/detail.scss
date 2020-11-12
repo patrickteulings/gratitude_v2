@@ -1,8 +1,21 @@
 .detail {
+  &__title {
+    padding: 2rem 0;
+    h1 {
+      line-height: 3rem;
+    }
+  }
   &__body {
+    &.section {
+      margin-top: 0;
+    }
+
     p {
       line-height: 2rem;
     }
+  }
+  &__date {
+    font-family: $heading-font-face-playfair;
   }
 }
 

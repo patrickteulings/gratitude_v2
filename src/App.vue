@@ -5,7 +5,16 @@
       <SplashScreen />
     </div>
     <div v-if="user && !loading">
-      <router-view />
+      <Suspense>
+        <template #default>
+          <route-wrapper />
+        </template>
+        <template #fallback>
+          <h1>
+            Add a loading template here
+          </h1>
+        </template>
+      </Suspense>
     </div>
     <div v-if="response.results">
       {{ response.results[9].address_components[0].long_name }} <br>
@@ -17,9 +26,9 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <router-link to="/gratitude/new">add gratitude</router-link>
     </div>
   </div>
-  <section><section class="section">test</section></section>
 </template>
 
 <script lang="ts">
@@ -31,6 +40,7 @@ import store from '@/store/index'
 import TopBar from '@/components/navigation/TopBar.vue'
 import LoginForm from '@/components/user/LoginForm.vue'
 import SplashScreen from '@/components/splash/SplashScreen.vue'
+import RouteWrapper from '@/components/RouteWrapper.vue'
 
 // Composables
 import { useLogin } from '@/use/auth/useLogin'
@@ -40,6 +50,15 @@ import { IResponse } from '@/types/Gratitude'
 import { ILocation } from '@/types/Location'
 // Setup
 export default defineComponent({
+  name: 'App',
+
+  components: {
+    TopBar,
+    LoginForm,
+    SplashScreen,
+    RouteWrapper
+  },
+
   setup () {
     const { user, loading, error } = useAuth()
     const loginState = useLogin()
@@ -72,11 +91,6 @@ export default defineComponent({
       error: computed(() => (loginState.error || error).value),
       logout: loginState.logout
     }
-  },
-  components: {
-    TopBar,
-    LoginForm,
-    SplashScreen
   }
 })
 </script>

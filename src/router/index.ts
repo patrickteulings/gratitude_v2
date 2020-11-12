@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Detail from '@/views/gratitude/Detail.vue'
 
 // eslint-disable-next-line
 const routes: any[] = [
@@ -23,7 +22,7 @@ const routes: any[] = [
     component: () => import('../views/gratitude/Detail.vue')
   },
   {
-    path: '/gratitude/addgratitude',
+    path: '/gratitude/new',
     name: 'addgratitude',
     component: () => import('../views/gratitude/AddGratitude.vue')
   }

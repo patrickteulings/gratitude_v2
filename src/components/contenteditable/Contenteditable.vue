@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed, ref, toRefs, PropType, SetupContext } from 'vue'
+import { defineComponent, onMounted, ref, PropType, SetupContext } from 'vue'
 import { UseBeastie } from '@/use/useBeastie'
 
 const ContentEditable = defineComponent({
@@ -25,9 +25,10 @@ const ContentEditable = defineComponent({
       return props.className
     }
 
+    // Handles placeholder, deletes placeholder on keydown
     const handleKeyDown = (e: { target: HTMLInputElement }): void => {
       const el: HTMLInputElement = e.target
-      console.log(el.innerText)
+
       if (el.innerText === beasty.value) el.innerHTML = ''
     }
 
@@ -38,6 +39,7 @@ const ContentEditable = defineComponent({
 
       // Reset to placeholder if no text is entered
       if (!el.innerText.length) el.innerText = beasty.value
+
       // handles classname if there is / is not any text / placeholder
       equalToPlaceHolder.value = (el.innerText === beasty.value)
 

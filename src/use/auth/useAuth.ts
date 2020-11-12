@@ -4,7 +4,7 @@ import { fire } from '@/config/firebaseConfigTypeScript'
 import store from '@/store'
 import { IUser } from '@/types/UserType.ts'
 
-interface State {
+interface IState {
   user: IUser | null;
   loading: boolean;
   error: boolean | null;
@@ -14,7 +14,7 @@ interface State {
 
 export default function () {
   // our reactive properties...
-  const state: State = reactive({
+  const state: IState = reactive({
     user: null,
     loading: true,
     error: null

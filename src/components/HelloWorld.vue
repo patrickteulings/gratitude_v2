@@ -2,7 +2,7 @@
   <div class="hello">
     <div class="home--wrapper">
       <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection" />
-      <MonthsAgo :currentDate="monthTemp" @onclicked="goToDetailPage" />
+      <MonthsAgo :currentDate="thisDayAMonthAgo" @onclicked="goToDetailPage" />
       <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)" />
     </div>
     <div v-if="filteredGratitudes.length">yes, gevonden
@@ -24,7 +24,7 @@ import MonthsAgo from '@/components/toast/MonthsAgo.vue'
 // Composables
 import useDate from '@/use/useDate'
 import useGratitudeFilters from '@/use/gratitude/useGratitudeFilters'
-import { IGratitudeWrapper, IGratitude } from '@/types/Gratitude'
+import { IGratitudeWrapper } from '@/types/Gratitude'
 import { useGyro } from '@/use/useGyro'
 
 // Interfaces
@@ -47,7 +47,7 @@ export default defineComponent({
   setup () {
     const state = reactive({
       filteredGratitudes: [] as Array<IGratitudeWrapper>,
-      monthTemp: new Date(),
+      thisDayAMonthAgo: new Date(),
       orientation: useGyro(),
       scrollTop: 0,
       beta: 0
@@ -69,12 +69,12 @@ export default defineComponent({
     // Select a date to only show items for that day
     const onDateSelection = (_date: Date): void => {
       state.filteredGratitudes = useGratitudeFilters().getGratitudesPerDay(_date)
-      // Temp, delete this
-      state.monthTemp = _date
+
+      state.thisDayAMonthAgo = _date
     }
 
     // Resets date selection
-    const onResetDateSelection = (date: Date): void => {
+    const onResetDateSelection = (): void => {
       state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
       state.filteredGratitudes = gratitudeList()
     }
@@ -115,17 +115,8 @@ export default defineComponent({
 
 
     onMounted(() => {
-      const user = computed(() => store.getters['userStore/getUser'])
-
-      store.dispatch('gratitudeStore/loadGratitudesPromise', user.value).then((result: firebase.firestore.QuerySnapshot) => {
-        result.forEach((item: firebase.firestore.DocumentData) => {
-          const what: IGratitudeWrapper = { data: item.data(), id: item.id }
-
-          state.filteredGratitudes.push(what)
-          store.dispatch('gratitudeStore/addSingleGratitude', what)
-        })
-        state.filteredGratitudes = gratitudeList()
-      })
+      state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
+      state.filteredGratitudes = gratitudeList()
     })
 
     const goToDetailPage = (gratitude: IGratitudeWrapper): void => {
@@ -134,7 +125,6 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      // filtered,
       gratitudes,
       gratitudeList,
       getReadableDate,
