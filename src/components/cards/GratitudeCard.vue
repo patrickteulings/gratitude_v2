@@ -1,7 +1,7 @@
 <template>
   <div class="gratitudeCard">
     <div class="gratitudeCard__inner">
-      <small class="date" :style="getDateStyle(gratitude)">{{ getReadableDate(gratitude.timeStamp.toDate()) }}</small>
+      <small class="date"><span class="date__mood" :style="getMoodStyle(gratitude)"></span> {{ getReadableDate(gratitude.timeStamp.toDate()) }}</small>
       <h1 class="gratitudeCard__title">{{ gratitude.title }}</h1>
       <div class="gratitudeCard__body" v-html="gratitude.body"></div>
     </div>
@@ -33,16 +33,16 @@ export default defineComponent({
 
     const getReadableDate = (_date: Date): string => useDate().formatDateToWordsWithLimit(_date, 10)
 
-    const getDateStyle = (_gratitude) => {
+    const getMoodStyle = (_gratitude) => {
       const styleObj = {
-        color: (_gratitude.mood) ?  _gratitude.mood.value : '#2FD9D9'
+        backgroundColor: (_gratitude.mood) ? _gratitude.mood.value : '#2FD9D9'
       }
-
       return styleObj
     }
+
     return {
       gratitude: getGratitudeData(),
-      getDateStyle,
+      getMoodStyle,
       getReadableDate
     }
   }

@@ -4,10 +4,8 @@
   &__inner {
     @include innerspace(2rem, 1rem);
     padding-bottom: 0.5rem;
-    // background-color: lighten(color('primary'), 25%);
-    background: #017A85;
+    background: color('white');
     border-radius: 5px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.5);
   }
 
   &__body {
@@ -26,8 +24,13 @@
   }
 
   &__title {
+    color: color('primary');
     @include font-size(40px);
     word-break: break-all;
+  }
+
+  &__body {
+    color: color('primary');
   }
 
   .date {
@@ -36,8 +39,16 @@
     margin-bottom: 0.5rem;
     @include font-size(10px);
     font-weight: bold;
-    color: #9CB210;
+    color: #75898B;
     font-family: $primary-font-face;
     font-weight: 700;
+
+    &__mood {
+      @include size(8px);
+      border-radius: 6px;
+      display: inline-block;
+      background-color: #999;
+      margin-right: 8px;
+    }
   }
 }

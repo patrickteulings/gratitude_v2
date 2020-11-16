@@ -104,9 +104,12 @@ export default defineComponent({
     const getDate = (): string => useDate().getDefaultFormat(new Date())
 
     onMounted(() => {
-      if (!store.getters['gratitudeStore/loadGratitudes']) {
-        store.dispatch('gratitudeStore/loadGratitudes', state.user)
+      for (const mood of state.moods) {
+        if (mood.label && mood.label.toLowerCase() === 'neutral') {
+          state.selectedMood = mood
+        }
       }
+      console.log(state.selectedMood)
     })
 
     return {
