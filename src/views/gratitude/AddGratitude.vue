@@ -17,7 +17,7 @@
     </section>
     <section class="addGratitude__dropdown">
       <div class="section__inner">
-        <drop-down :listData="mood"></drop-down>
+        <drop-down :listData="moods" @onupdate="handleMoodUpdate"></drop-down>
       </div>
     </section>
     <section class="addGratitude__actions">
@@ -44,6 +44,16 @@ import DropDown from '@/components/ui/DropDown.vue'
 // Interfaces
 import { IUser } from '@/types/UserType'
 import { IGratitude } from '@/types/Gratitude'
+import { IMood } from '@/types/Mood'
+
+interface IState {
+  moods: Array<IMood>;
+  user: IUser;
+  title: string;
+  body: string;
+  selectedMood: IMood | null;
+
+}
 
 export default defineComponent({
   components: {
@@ -52,13 +62,14 @@ export default defineComponent({
   },
 
   setup () {
-    const state = reactive({
-      mood: store.getters['moodStore/getMoods'],
+    const state: IState = reactive({
+      moods: store.getters['moodStore/getMoods'],
       user: store.getters['userStore/getUser'],
       title: '',
-      body: ''
+      body: '',
+      selectedMood: null
     })
-    console.log('moods', store.getters['moodStore/getMoods'])
+
     // Handle emitted new Title text from ContentEditable
     const handleTitleUpdate = (content: string): void => {
       state.title = content
@@ -67,6 +78,10 @@ export default defineComponent({
     // Handle emitted new Body text from ContentEditable
     const handleBodyUpdate = (content: string): void => {
       state.body = content
+    }
+
+    const handleMoodUpdate = (mood: IMood) => {
+      state.selectedMood = mood
     }
 
     // Let's save this to Firestore
@@ -78,6 +93,7 @@ export default defineComponent({
         timeStamp: new Date(),
         dayStamp: useDate().getDayStamp(),
         weather: {},
+        mood: state.selectedMood,
         user: state.user
       }
       // Save to firebase
@@ -99,7 +115,8 @@ export default defineComponent({
       getDate,
       submitNewGratitude,
       handleTitleUpdate,
-      handleBodyUpdate
+      handleBodyUpdate,
+      handleMoodUpdate
     }
   }
 })

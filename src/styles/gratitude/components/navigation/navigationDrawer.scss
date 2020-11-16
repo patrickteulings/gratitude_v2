@@ -1,0 +1,45 @@
+$custom-ease-out: cubic-bezier(.07,.8,.13,1);
+$menuWidth: 300px;
+
+.navigationDrawer {
+  background: color('white');
+  @include size($menuWidth, 100vh);
+  @include position(absolute);
+  transform: translateX(0);
+  transition: all 0.2s ease-out;
+  z-index: 300;
+
+  &.section {
+    margin-top: 0;
+  }
+
+  &.opened {
+    transition: all 0.3s $custom-ease-out;
+    transform: translateX(0);
+  }
+
+  &.closed {
+    transition: all 0.1s $custom-ease-out;
+    transform: translateX(-300px);
+  }
+
+  .section__inner {
+    @include position;
+  }
+
+  // Delete after done
+  button {
+    position: absolute;
+    right: -200px;
+  }
+
+  .btn--hamburger {
+    @include position(absolute, auto, 15px, -55px, auto);
+  }
+}
+
+.tempClass {
+  display: block;
+  color: #333;
+  margin-bottom: 1rem;
+}

@@ -14,7 +14,7 @@ const ADD_SINGLE_HABIT = 'ADD_SINGLE_HABIT'
 export const HabitStore = {
   namespaced: true,
   state: reactive({
-    habits: null
+    habits: []
   }),
   mutations: {
     ADD_SINGLE_HABIT: (state: any, habit: IHabit) => {

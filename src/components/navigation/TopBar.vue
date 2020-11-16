@@ -1,11 +1,7 @@
 <template>
   <div>
     <div v-if="user" class="topbar">
-      <button class="btn--reset btn--hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div></div>
       <div class="avatar--small">
         <img :src="user.photoURL" :alt="user.displayName">
       </div>

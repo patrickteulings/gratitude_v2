@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <top-bar />
+    <navigation-drawer />
     <div v-if="loading">
       <SplashScreen />
     </div>
@@ -38,6 +39,7 @@ import store from '@/store/index'
 
 // Components
 import TopBar from '@/components/navigation/TopBar.vue'
+import NavigationDrawer from '@/components/navigation/NavigationDrawer.vue'
 import LoginForm from '@/components/user/LoginForm.vue'
 import SplashScreen from '@/components/splash/SplashScreen.vue'
 import RouteWrapper from '@/components/RouteWrapper.vue'
@@ -54,6 +56,7 @@ export default defineComponent({
 
   components: {
     TopBar,
+    NavigationDrawer,
     LoginForm,
     SplashScreen,
     RouteWrapper

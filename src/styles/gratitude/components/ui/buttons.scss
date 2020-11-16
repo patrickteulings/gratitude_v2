@@ -38,7 +38,6 @@
   }
 
   &--hamburger {
-    @include position();
     @include size(40px);
     background: none;
 

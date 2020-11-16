@@ -1,9 +1,10 @@
 import { IUser } from '@/types/UserType'
+import { IMood } from './Mood'
 
 export interface IGratitude {
   body: string;
   color?: string;
-  mood?: string;
+  mood?: IMood | null;
   timeStamp: object | any;
   dayStamp: object | any;
   title: string;
