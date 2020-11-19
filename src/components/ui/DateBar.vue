@@ -1,6 +1,7 @@
 <template>
+  <div class="gooey"></div>
   <div class="datebar">
-    <div class="gooey"></div>
+    <div>iet</div>
     <div class="datebar__inner">
       <div
         v-for="weekday in weekdays"
@@ -11,11 +12,11 @@
       >
         <div class="datebar__number" :class="dayHasEntry(weekday) ? 'hasEntry': 'hasNoEntry'">
           <div class="datebar__number--number">{{ getDayName(weekday) }}</div>
-          <div class="datebar__icon--wrapper"><Icon class="datebar__icon" :iconProperties="{name: 'shield', size: '16', strokeColor: '#9CB210', strokeWidth: 2}" /></div>
+          <!-- <div class="datebar__icon--wrapper"><Icon class="datebar__icon" :iconProperties="{name: 'shield', size: '16', strokeColor: '#9CB210', strokeWidth: 2}" /></div> -->
         </div>
         <span class="datebar__number--hidden-number">{{ getDefaultFormat(weekday) }}</span>
       </div>
-      <div class="number">
+      <div class="datebar__kebab">
         <div class="datebar__number">...</div>
       </div>
     </div>
@@ -54,7 +55,7 @@ export default defineComponent({
   },
 
   components: {
-    Icon
+    // Icon
   },
 
   emits: ['resetDateSelection', 'dateSelected'],

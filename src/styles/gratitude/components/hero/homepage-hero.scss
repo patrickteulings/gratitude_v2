@@ -40,7 +40,6 @@
 
     &__amount {
       display: block;
-      font-family: $numbers-accent;
       font-weight: 700;
       @include font-size(32px);
       color: color('white');

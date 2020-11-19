@@ -14,7 +14,8 @@ $primary-colors: (
   'positive': #C6C150,
   'white': #ffffff,
   'black': #111111,
-  'light' : #C4C4C4
+  'light': #C4C4C4,
+  'olive': #C6C150
 
   // https://colorhunt.co/palette/167311
 );
@@ -77,5 +78,9 @@ $color-combinations: (
   'positive': (
     'background': map-get($primary-colors, 'positive'),
     'color': map-get($primary-colors, 'black'),
+  ),
+  'olive': (
+    'background': map-get($primary-colors, 'olive'),
+    'color': map-get($primary-colors, 'white'),
   )
 );
