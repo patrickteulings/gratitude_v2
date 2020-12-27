@@ -21,7 +21,7 @@
     <login-form v-else-if="!user && !loading" />
     <div v-else>No satisfying user found</div>
     <div v-if="error">error</div>
-    <login-form />
+
     <div v-if="response.results">
       {{ response.results[9].address_components[0].long_name }} <br>
       {{ locationLoading }} {{ msg }} {{ latitude }} {{ longitude }}
