@@ -8,7 +8,7 @@
       </button>
 
       <!-- <button class="btn" @click="toggleMenu">menu</button> -->
-      <a class="tempClass" @click.prevent="navigateTo('/')" href="/">Home</a>
+      <a class="tempClass" @click.prevent="navigateTo('/')" href="/">Home / thuis</a>
       <a class="tempClass" @click.prevent="navigateTo('/about')" href="/about">About</a>
       <a class="tempClass" @click.prevent="navigateTo('/gratitude/new')" href="/gratitude/new">New</a>
     </div>

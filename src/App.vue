@@ -5,10 +5,7 @@
     <div v-if="loading">
       <SplashScreen />
     </div>
-    <div v-if="response.results">
-      {{ response.results[9].address_components[0].long_name }} <br>
-      {{ locationLoading }} {{ msg }} {{ latitude }} {{ longitude }}
-    </div>
+
     <div v-if="user && !loading">
       <Suspense>
         <template #default>
@@ -24,6 +21,11 @@
     <login-form v-else-if="!user && !loading" />
     <div v-else>No satisfying user found</div>
     <div v-if="error">error</div>
+    <login-form />
+    <div v-if="response.results">
+      {{ response.results[9].address_components[0].long_name }} <br>
+      {{ locationLoading }} {{ msg }} {{ latitude }} {{ longitude }}
+    </div>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
