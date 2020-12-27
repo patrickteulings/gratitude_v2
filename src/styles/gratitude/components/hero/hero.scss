@@ -1,0 +1,9 @@
+.hero {
+  @include innerspace(1rem);
+  display: flex;
+  justify-content: flex-end;
+
+  &__date {
+    font-family: $heading-font-face-playfair;
+  }
+}

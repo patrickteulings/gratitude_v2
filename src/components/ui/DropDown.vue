@@ -37,26 +37,7 @@ export default defineComponent({
       isOpen: false
     })
 
-    const getItemColor = (colorSetting: IMood): string => {
-      return `color: ${colorSetting.value}`
-    }
-
-    const setSelectedItem = (colorItem: IMood): void => {
-      state.selected = colorItem
-      // closeDropDown()
-      emit('onupdate', colorItem)
-    }
-
-    const getFormattedItemLabel = (colorItem: IMood): string => {
-      return (colorItem.label !== undefined) ? colorItem.label : ''
-    }
-
-    const isSelectedItem = (item: IMood) => {
-      return state.selected === item
-    }
-
     const openDropDown = (): void => {
-      console.log('open', store.getters['moodStore/getMoods'])
       state.isOpen = true
     }
 
@@ -66,6 +47,24 @@ export default defineComponent({
 
     const toggleDropdown = (): void => {
       (state.isOpen) ? closeDropDown() : openDropDown()
+    }
+
+    const getItemColor = (colorSetting: IMood): string => {
+      return `color: ${colorSetting.value}`
+    }
+
+    const setSelectedItem = (colorItem: IMood): void => {
+      state.selected = colorItem
+      closeDropDown()
+      emit('onupdate', colorItem)
+    }
+
+    const getFormattedItemLabel = (colorItem: IMood): string => {
+      return (colorItem.label !== undefined) ? colorItem.label : ''
+    }
+
+    const isSelectedItem = (item: IMood) => {
+      return state.selected === item
     }
 
     const resetDropdown = (): void => {
@@ -83,7 +82,6 @@ export default defineComponent({
     const addEvents = (): void => {
       document.addEventListener('click', (e) => handleOutsideClick(e))
       document.addEventListener('touchstart', (e) => handleOutsideClick(e))
-      // EventBus.$on('resetContentEditable', () => resetDropdown())
     }
 
     const removeEvents = (): void => {

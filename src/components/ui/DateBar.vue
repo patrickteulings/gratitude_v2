@@ -1,7 +1,7 @@
 <template>
   <div class="gooey"></div>
   <div class="datebar">
-    <div>iet</div>
+    <div></div>
     <div class="datebar__inner">
       <div
         v-for="weekday in weekdays"

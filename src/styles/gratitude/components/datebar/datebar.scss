@@ -80,6 +80,8 @@
       .datebar__number--number {
         padding-top: 2px;
         transition: all 0.5s;
+        @include fontsmoothing();
+        @include font-size(7px);
       }
 
       &.hasEntry {

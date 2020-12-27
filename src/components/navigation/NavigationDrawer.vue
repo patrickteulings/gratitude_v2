@@ -8,9 +8,9 @@
       </button>
 
       <!-- <button class="btn" @click="toggleMenu">menu</button> -->
-      <router-link class="tempClass" to="/">Home</router-link>
-      <router-link class="tempClass" to="/about">About</router-link>
-      <router-link class="tempClass" to="/gratitude/new">New</router-link>
+      <a class="tempClass" @click.prevent="navigateTo('/')" href="/">Home</a>
+      <a class="tempClass" @click.prevent="navigateTo('/about')" href="/about">About</a>
+      <a class="tempClass" @click.prevent="navigateTo('/gratitude/new')" href="/gratitude/new">New</a>
     </div>
   </section>
 </template>
@@ -25,23 +25,29 @@ export default defineComponent({
   setup () {
     const menuOpen = ref<boolean>(false)
 
-    const openMenu = () => {
+    const openMenu = (): void => {
       menuOpen.value = true
     }
 
-    const closeMenu = () => {
+    const closeMenu = (): void => {
       menuOpen.value = false
     }
 
-    const toggleMenu = () => {
+    const toggleMenu = (): void => {
       (menuOpen.value === true) ? closeMenu() : openMenu()
+    }
+
+    const navigateTo = (_path: string): void => {
+      router.push({ path: _path })
+      closeMenu()
     }
 
     return {
       toggleMenu,
       openMenu,
       closeMenu,
-      menuOpen
+      menuOpen,
+      navigateTo
     }
   }
 })

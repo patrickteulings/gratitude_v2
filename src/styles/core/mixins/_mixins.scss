@@ -209,7 +209,7 @@ $basefontsize: 18px;
   bottom: $bottom;
 }
 
-// Hide elemnent visually but not from screen readers
+// Hide elemnent vi``sually but not from screen readers
 
 @mixin hide-visually($toggle: "hide") {
   @if not index("hide" "unhide", $toggle) {

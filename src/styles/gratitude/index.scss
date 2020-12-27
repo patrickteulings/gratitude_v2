@@ -7,7 +7,7 @@
   'components/navigation/topbar',
   'components/cards/card',
   'components/datebar/datebar',
-  'components/hero/homepage-hero',
+  'components/hero/hero',
   'components/gratitude/gratitude',
   'components/gratitude/addGratitude',
   'components/gratitude/contenteditable',
@@ -34,4 +34,5 @@ body, html {
   color: color('white');
   font-family: $primary-font-face;
   overflow-x: hidden;
+  @include fontsmoothing();
 }

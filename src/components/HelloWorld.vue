@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <div class="home--wrapper">
+      <hero />
       <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection" />
       <MonthsAgo :currentDate="thisDayAMonthAgo" @onclicked="goToDetailPage" />
       <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)" />
@@ -18,6 +19,7 @@ import router from '@/router'
 
 // Components
 import DateBar from '@/components/ui/DateBar.vue'
+import Hero from '@/components/hero/hero.vue'
 import GratitudeCard from '@/components/cards/GratitudeCard.vue'
 import MonthsAgo from '@/components/toast/MonthsAgo.vue'
 
@@ -41,7 +43,8 @@ export default defineComponent({
   components: {
     DateBar,
     GratitudeCard,
-    MonthsAgo
+    MonthsAgo,
+    Hero
   },
 
   setup () {

@@ -36,6 +36,10 @@ export const useDate = () => {
   }
 
   // returns the day's name in short format (mon, tue etc)
+  const getToday = (_date: Date) => format(_date, 'eeee do')
+
+
+  // returns the day's name in short format (mon, tue etc)
   const getDayName = (_date: Date) => format(_date, 'eee')
 
   // Returns the app's default format (UK)
@@ -60,7 +64,8 @@ export const useDate = () => {
     getDefaultFormat,
     getDayName,
     getDayStamp,
-    isDateInFuture
+    isDateInFuture,
+    getToday
   }
 }
 
