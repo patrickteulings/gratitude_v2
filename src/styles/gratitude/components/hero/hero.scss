@@ -5,5 +5,6 @@
 
   &__date {
     font-family: $heading-font-face-playfair;
+    @include font-size(32px);
   }
 }

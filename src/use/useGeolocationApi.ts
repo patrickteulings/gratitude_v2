@@ -21,8 +21,8 @@ export default function () {
       const response = await fetch(url, options)
       const json = await response.json()
       state.response = json
-      console.log('state.response')
-      console.log(state.response)
+      // console.log('state.response')
+      // console.log(state.response)
     } catch (error) {
       state.fetchError = error
     } finally {

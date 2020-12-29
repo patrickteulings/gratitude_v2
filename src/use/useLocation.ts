@@ -8,7 +8,6 @@ interface IState {
   error: boolean | null;
   latitude: number | null;
   longitude: number | null;
-
 }
 
 
@@ -25,20 +24,26 @@ export default function () {
 
   const { response, fetching, fetchError, getStreetAddressFrom } = useGeoLocationApi()
 
-  const success = (position: Position) => {
+  const success = (position: GeolocationCoordinates) => {
     state.locationLoading = false
     state.msg = 'Location success'
-    state.latitude = position.coords.latitude
-    state.longitude = position.coords.longitude
+    state.latitude = position.latitude
+    state.longitude = position.longitude
 
     getStreetAddressFrom(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${state.latitude},${state.longitude}&key=${GOOGLE_API_KEY}`, {})
   }
 
 
-  const error = (position: PositionError) => {
-    console.log(position, fetching, fetchError)
-    state.locationLoading = false
-    state.error = true
+  const error = (positionError: GeolocationPositionError) => {
+    if (positionError) {
+      console.log(positionError.code)
+      state.locationLoading = false
+      state.error = true
+    }
+    // Code
+    // 1: permission denied
+    // 2: position unavailable
+    // 3: timeout
   }
 
   // make the firebase call to listen for change in auth state,
