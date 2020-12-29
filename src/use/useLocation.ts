@@ -1,6 +1,7 @@
 import { toRefs, reactive } from 'vue'
 import useGeoLocationApi from '@/use/useGeolocationApi'
 import { GOOGLE_API_KEY } from '@/config/google'
+// import Geolocation from ''
 
 interface IState {
   msg: string | null;
@@ -8,6 +9,17 @@ interface IState {
   error: boolean | null;
   latitude: number | null;
   longitude: number | null;
+}
+
+interface IGeolocationPosition {
+  coords: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+interface IGeolocationPositionError {
+  code: number;
 }
 
 
@@ -24,7 +36,7 @@ export default function () {
 
   const { response, fetching, fetchError, getStreetAddressFrom } = useGeoLocationApi()
 
-  const success = (position: GeolocationPosition) => {
+  const success = (position: IGeolocationPosition) => {
     state.locationLoading = false
     state.msg = 'Location success'
     state.latitude = position.coords.latitude
@@ -34,7 +46,7 @@ export default function () {
   }
 
 
-  const error = (positionError: GeolocationPositionError) => {
+  const error = (positionError: IGeolocationPositionError) => {
     if (positionError) {
       console.log(positionError.code)
       state.locationLoading = false
@@ -50,8 +62,16 @@ export default function () {
     state.msg = 'Geolocation is not supported by your browser'
   } else {
     state.msg = 'Locating…'
-    navigator.geolocation.getCurrentPosition(success, error)
+    navigator.geolocation.getCurrentPosition(
+      success,
+      error,
+      {
+        enableHighAccuracy: true,
+        maximumAge: 15000
+      }
+    )
   }
+
 
   // return all of the properties from the function
   return {

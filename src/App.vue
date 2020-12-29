@@ -69,7 +69,7 @@ export default defineComponent({
     const loginState = useLogin()
     const { latitude, longitude, msg, response, locationLoading = false } = useLocation()
 
-    // Watch Gyro updates
+    // Watch Google Lat/Long updates
     watch([response, latitude], ([first, firstLat], [second, sencondLat]) => {
       if (response !== null) {
         const resp = response.value as IResponse
