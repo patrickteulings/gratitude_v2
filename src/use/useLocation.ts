@@ -24,11 +24,11 @@ export default function () {
 
   const { response, fetching, fetchError, getStreetAddressFrom } = useGeoLocationApi()
 
-  const success = (position: GeolocationCoordinates) => {
+  const success = (position: GeolocationPosition) => {
     state.locationLoading = false
     state.msg = 'Location success'
-    state.latitude = position.latitude
-    state.longitude = position.longitude
+    state.latitude = position.coords.latitude
+    state.longitude = position.coords.longitude
 
     getStreetAddressFrom(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${state.latitude},${state.longitude}&key=${GOOGLE_API_KEY}`, {})
   }
@@ -46,9 +46,6 @@ export default function () {
     // 3: timeout
   }
 
-  // make the firebase call to listen for change in auth state,
-  // we have set initial loading status to true so nothing happens on UI
-  // side until loading is set to false
   if (!navigator.geolocation) {
     state.msg = 'Geolocation is not supported by your browser'
   } else {
