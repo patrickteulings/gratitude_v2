@@ -4,17 +4,20 @@ import { db } from '@/config/firebaseConfigTypeScript'
 // Types.Interfaces
 import { IGratitude, IGratitudeWrapper } from '@/types/Gratitude'
 import { ILocation } from '@/types/Location'
+import { IWeather } from '@/types/Weather'
 
 const ADD_MULTIPLE_GRATITUDES = 'ADD_MULTIPLE_GRATITUDES'
 const ADD_GRATITUDE = 'ADD_GRATITUDE'
 const SET_CURRENT_LOCATION = 'SET_CURRENT_LOCATION'
+const SET_CURRENT_WEATHER = 'SET_CURRENT_WEATHER'
 const SAVE_GRATITUDE = 'SAVE_GRATITUDE'
 
 export const GratitudeStore = {
   namespaced: true,
   state: reactive({
     gratitudes: [],
-    location: null
+    location: null,
+    weather: null
   }),
 
 
@@ -48,8 +51,12 @@ export const GratitudeStore = {
     },
 
     SET_CURRENT_LOCATION: (state: any, payload: ILocation) => {
-      console.log('SET_CURRENT_LOCATION')
       state.location = payload
+    },
+
+    SET_CURRENT_WEATHER: (state: any, payload: IWeather) => {
+      console.log('SET_CURRENT_WEATHER', payload)
+      state.weather = payload
     }
   },
 
@@ -90,6 +97,11 @@ export const GratitudeStore = {
       commit(SET_CURRENT_LOCATION, location)
     },
 
+    setWeather: (context, weather: IWeather): void => {
+      const { commit } = context
+      commit(SET_CURRENT_WEATHER, weather)
+    },
+
     saveGratitude: (context, gratitude: IGratitude): void => {
       const { commit, rootGetters } = context
       commit(SAVE_GRATITUDE, gratitude)
@@ -102,6 +114,9 @@ export const GratitudeStore = {
     },
     getLocation: (state): ILocation => {
       return state.location
+    },
+    getWeather: (state): ILocation => {
+      return state.weather
     }
   }
 }

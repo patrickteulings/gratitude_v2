@@ -24,7 +24,9 @@
 
     <div v-if="response.results">
       {{ response.results[9].address_components[0].long_name }} <br>
-      {{ locationLoading }} {{ msg }} {{ latitude }} {{ longitude }}
+      {{ locationLoading }} {{ msg }} {{ latitude }} {{ longitude }} <br>
+      weatherLoading {{ weatherLoading }}<br>
+      weaherresponse {{ weatherResponse }}
     </div>
     <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -50,6 +52,7 @@ import RouteWrapper from '@/components/RouteWrapper.vue'
 import { useLogin } from '@/use/auth/useLogin'
 import useAuth from '@/use/auth/useAuth'
 import useLocation from '@/use/useLocation'
+import useWeather from '@/use/useWeather'
 import { IResponse } from '@/types/Gratitude'
 import { ILocation } from '@/types/Location'
 // Setup
@@ -68,20 +71,44 @@ export default defineComponent({
     const { user, loading, error } = useAuth()
     const loginState = useLogin()
     const { latitude, longitude, msg, response, locationLoading = false } = useLocation()
+    const { weatherResponse, getWeather, weatherLoading } = useWeather()
+    // const { latitude, longitude, msg, response, locationLoading = false } = useWeather()
 
     // Watch Google Lat/Long updates
+    // If we have a location, also get the weather!!
     watch([response, latitude], ([first, firstLat], [second, sencondLat]) => {
+      let cityName = ''
       if (response !== null) {
         const resp = response.value as IResponse
-        let cityName = ''
         if (resp.results) {
-          cityName = resp.results[9].address_components[0].long_name
+          resp.results.map((item) => {
+            const types = item.types.map((isLocality) => {
+              if (isLocality === 'locality') {
+                cityName = item.address_components[0].long_name
+              }
+            })
+          })
         }
         const location = { coordinates: { latitude: latitude.value, longitude: longitude.value }, city: cityName }
+
+        getWeather({ coords: { latitude: latitude.value, longitude: longitude.value } }).then((result) => {
+          console.log('result', result)
+          const weather = {
+            temp: result.main.temp,
+            feelsLike: result.main.feels_like,
+            weatherID: result.weather[0].id,
+            weatherIcon: result.weather[0].icon,
+            description: result.weather[0].main,
+            descriptionLong: result.weather[0].description
+          }
+          store.dispatch('gratitudeStore/setWeather', weather)
+        })
+        // console.log(getWeather({ coords: { latitude: latitude.value, longitude: longitude.value } }))
         store.dispatch('gratitudeStore/setLocation', location)
       }
+
       if (latitude !== null) {
-        console.log('latitude!!!!', latitude.value)
+        console.log('latitude!!!!', cityName)
       }
     })
 
@@ -93,6 +120,8 @@ export default defineComponent({
       response,
       msg,
       locationLoading,
+      weatherLoading,
+      weatherResponse,
       error: computed(() => (loginState.error || error).value),
       logout: loginState.logout
     }

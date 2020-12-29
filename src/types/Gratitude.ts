@@ -24,6 +24,7 @@ interface ILongname {
 
 export interface IAddresscomponents {
   address_components: Array<ILongname>;
+  types: Array<string>;
 }
 
 

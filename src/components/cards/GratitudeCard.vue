@@ -2,14 +2,15 @@
   <div class="gratitudeCard">
     <div class="gratitudeCard__inner">
       <small class="date"><span class="date__mood" :style="getMoodStyle(gratitude)"></span> {{ getReadableDate(gratitude.timeStamp.toDate()) }}</small>
-      <h1 class="gratitudeCard__title">{{ gratitude.title }}</h1>
+      <h1 class="gratitudeCard__title">{{ gratitude.title }} <span v-if="temp">{{temp.temp}}</span></h1>
       <div class="gratitudeCard__body" v-html="gratitude.body"></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Prop, toRef, toRefs } from 'vue'
+import { defineComponent, PropType, Prop, toRef, toRefs, computed } from 'vue'
+import store from '@/store'
 
 // Components
 import { IGratitude, IGratitudeWrapper } from '@/types/Gratitude'
@@ -43,7 +44,8 @@ export default defineComponent({
     return {
       gratitude: getGratitudeData(),
       getMoodStyle,
-      getReadableDate
+      getReadableDate,
+      temp: computed(() => store.getters['gratitudeStore/getWeather'])
     }
   }
 })
