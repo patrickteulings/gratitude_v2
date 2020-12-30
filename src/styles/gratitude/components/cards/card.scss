@@ -6,6 +6,20 @@
     padding-bottom: 0.5rem;
     background: color('white');
     border-radius: 5px;
+    position: relative;
+
+    &.hasHabits {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &__habits {
+    @include innerspace(2rem, 1rem);
+    padding-bottom: 0.5rem;
+    background: rgba(color('white'), 70%);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   &__body {

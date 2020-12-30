@@ -2,7 +2,7 @@
   <div class="hero">
     <div class="hero__inner">
       <div class="hero__date">{{ getToday() }}</div>
-      <div class="hero__weather">{{ (location) ? location.city : 'loading' }}{{ (weather) ? weather.temp : 'loading' }}&deg;</div>
+      <div class="hero__weather">{{ (location) ? location.city : 'loading' }}, {{ (weather) ? weather.temp : 'loading' }}&deg;</div>
     </div>
   </div>
 </template>
