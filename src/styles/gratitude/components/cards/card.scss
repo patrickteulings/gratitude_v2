@@ -1,5 +1,6 @@
 .gratitudeCard {
   @include outerspace(0.5rem, 1rem);
+  color: color('primary');
 
   &__inner {
     @include innerspace(2rem, 1rem);
@@ -26,7 +27,7 @@
     @extend .paragraph;
 
     // We need to make font-styles explicit for every font-style as these HTML tags are
-    // added on the fly to our contenteditable field and not rerendered
+    // added on the fly to our contenteditable field and not rerendered (apparently)
 
     b {
       font-weight: 700;
@@ -48,7 +49,7 @@
   }
 
   .date {
-    display: inline-block;
+    display: flex;
     @include position(relative, 0, -0.5rem);
     margin-bottom: 0.5rem;
     @include font-size(10px);

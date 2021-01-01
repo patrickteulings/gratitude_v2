@@ -16,12 +16,8 @@
     </section>
     <section class="section detail__body">
       <div class="section__inner">
-        <p v-if="getGratitude">
-          {{ getGratitude.data.body }}
-        </p>
-        <p v-else>
-          Gratitude
-        </p>
+        <p v-if="getGratitude" v-html="getGratitude.data.body"></p>
+        <p v-else></p>
     </div>
     </section>
   </div>

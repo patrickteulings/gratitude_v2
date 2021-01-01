@@ -22,7 +22,8 @@
     </section>
     <section class="addGratitude__actions">
       <div class="section__inner">
-        <button @click="submitNewGratitude()">submit</button>
+        {{ isSubmitting }}
+        <button @click="submitNewGratitude()">submit</button><span v-if="isSubmitting === true">loading...</span>
       </div>
     </section>
   </div>
@@ -52,7 +53,7 @@ interface IState {
   title: string;
   body: string;
   selectedMood: IMood | null;
-
+  isSubmitting: boolean;
 }
 
 export default defineComponent({
@@ -67,7 +68,8 @@ export default defineComponent({
       user: store.getters['userStore/getUser'],
       title: '',
       body: '',
-      selectedMood: null
+      selectedMood: null,
+      isSubmitting: false
     })
 
     // Handle emitted new Title text from ContentEditable
@@ -86,18 +88,22 @@ export default defineComponent({
 
     // Let's save this to Firestore
     const submitNewGratitude = () => {
+      state.isSubmitting = true
+
       const newGratitude: IGratitude = {
         title: state.title,
         body: state.body,
         location: store.getters['gratitudeStore/getLocation'],
         timeStamp: new Date(),
         dayStamp: useDate().getDayStamp(),
-        weather: {},
+        weather: store.getters['gratitudeStore/getWeather'],
         mood: state.selectedMood,
         user: state.user
       }
       // Save to firebase
-      store.dispatch('gratitudeStore/saveGratitude', newGratitude)
+      store.dispatch('gratitudeStore/saveGratitude', newGratitude).then(() => {
+        setTimeout(() => { state.isSubmitting = false }, 1900)
+      })
     }
 
     // Well, get the formatted date

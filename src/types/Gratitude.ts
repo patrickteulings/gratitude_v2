@@ -1,6 +1,10 @@
 import { IUser } from '@/types/UserType'
 import { IMood } from './Mood'
 
+export interface IWeather {
+  weatherID: number;
+}
+
 export interface IGratitude {
   body: string;
   color?: string;
@@ -8,7 +12,7 @@ export interface IGratitude {
   timeStamp: object | any;
   dayStamp: object | any;
   title: string;
-  weather: object;
+  weather: IWeather;
   location: object;
   user?: IUser;
 }

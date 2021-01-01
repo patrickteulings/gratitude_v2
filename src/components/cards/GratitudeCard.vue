@@ -1,8 +1,8 @@
 <template>
   <div class="gratitudeCard">
     <div class="gratitudeCard__inner hasHabits">
-      <small class="date"><span class="date__mood" :style="getMoodStyle(gratitude)"></span> {{ getReadableDate(gratitude.timeStamp.toDate()) }}</small>
-      <h1 class="gratitudeCard__title">{{ gratitude.title }} <span v-if="temp">{{temp.temp}}</span></h1>
+      <small class="date"><span class="date__mood" :style="getMoodStyle(gratitude)"></span> {{ getReadableDate(gratitude.timeStamp.toDate()) }}<span v-if="gratitude.weather.weatherID"><i :class="getWeatherIcon(gratitude)"></i></span></small>
+      <h1 class="gratitudeCard__title">{{ gratitude.title }}</h1>
       <div class="gratitudeCard__body" v-html="gratitude.body"></div>
       <div class="gratitudeCard__tags">
         <div class="tag">trust</div>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Prop, toRef, toRefs, computed } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import store from '@/store'
 
 // Components
@@ -47,10 +47,15 @@ export default defineComponent({
       return styleObj
     }
 
+    const getWeatherIcon = (gratitude: IGratitude) => {
+      return `wi wi-owm-${gratitude.weather.weatherID}`
+    }
+
     return {
       gratitude: getGratitudeData(),
       getMoodStyle,
       getReadableDate,
+      getWeatherIcon,
       temp: computed(() => store.getters['gratitudeStore/getWeather'])
     }
   }
