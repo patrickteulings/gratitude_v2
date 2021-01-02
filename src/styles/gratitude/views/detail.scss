@@ -29,6 +29,10 @@
     font-family: $heading-font-face-playfair;
     display: flex;
     justify-content: space-between;
+
+    .weather {
+      opacity: 0.4;
+    }
   }
 }
 

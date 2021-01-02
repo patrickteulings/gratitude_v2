@@ -2,8 +2,8 @@
   <div class="view detail">
     <section class="detail">
       <div class="section__inner">
-        <div class="detail__meta" v-if="getGratitude" :style="[parallax()]">
-          <span class="date">{{ getDate(getGratitude) }}</span><span class="weather" v-if="getGratitude">{{ getWeather(getGratitude).temp }}&deg;C <i :class="getWeather(getGratitude).icon"></i></span>
+        <div class="detail__meta" v-if="getGratitude" :style="[getMood(getGratitude), parallax()]" style="color: #fff;">
+          <span class="date">{{ getDate(getGratitude) }}</span><span class="weather" v-if="getWeather(getGratitude)">{{ getWeather(getGratitude).temp }}&deg;C <i :class="getWeather(getGratitude).icon"></i></span>
         </div>
       </div>
     </section>
@@ -67,7 +67,7 @@ export default defineComponent({
     }
 
     const getWeather = (gratitude: IGratitude) => {
-      return { temp: gratitude.weather.temp, icon: `wi wi-owm-${gratitude.weather.weatherID}` }
+      return (gratitude.weather.temp && gratitude.weather.weatherID) ? { temp: gratitude.weather.temp, icon: `wi wi-owm-${gratitude.weather.weatherID}` } : null
     }
 
     const parallax = () => {

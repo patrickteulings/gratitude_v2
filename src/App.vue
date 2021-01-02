@@ -22,7 +22,7 @@
     <div v-else>No satisfying user found</div>
     <div v-if="error">error</div>
 
-    <div v-if="response.results">
+    <div v-if="response.results" hidden>
       {{ response.results[9].address_components[0].long_name }} <br>
       {{ locationLoading }} {{ msg }} {{ latitude }} {{ longitude }} <br>
       weatherLoading {{ weatherLoading }}<br>
