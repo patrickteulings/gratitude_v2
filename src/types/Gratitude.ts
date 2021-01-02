@@ -1,9 +1,6 @@
 import { IUser } from '@/types/UserType'
 import { IMood } from './Mood'
-
-export interface IWeather {
-  weatherID: number;
-}
+import { IWeather } from './Weather'
 
 export interface IGratitude {
   body: string;

@@ -11,10 +11,11 @@
 
     &.section {
       margin-top: 0;
-      @include innerspace(16px, 0px);
+      @include innerspace(16px, 24px);
     }
   }
   &__body {
+    @include innerspace(0, 24px);
     &.section {
       margin-top: 0;
     }
@@ -23,8 +24,11 @@
       line-height: 2rem;
     }
   }
-  &__date {
+  &__meta {
+    @include innerspace(0, 24px);
     font-family: $heading-font-face-playfair;
+    display: flex;
+    justify-content: space-between;
   }
 }
 

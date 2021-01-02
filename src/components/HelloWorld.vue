@@ -116,7 +116,6 @@ export default defineComponent({
       handleChange(beta)
     })
 
-
     onMounted(() => {
       state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
       state.filteredGratitudes = gratitudeList()

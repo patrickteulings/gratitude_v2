@@ -6,7 +6,7 @@
   background: color('white');
   @include transition(all, 0.3s);
   @include size(100vw, 100vh);
-  overflow: scroll;
+  // overflow: scroll;
 
   &.is-open {
     display: block;
