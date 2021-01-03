@@ -31,7 +31,14 @@
     justify-content: space-between;
 
     .weather {
-      opacity: 0.4;
+      opacity: 0.6;
+      text-align: right;
+      // font-family: $primary-font-face;
+      font-weight: 100;
+
+      i {
+        margin-left: 0.5rem;
+      }
     }
   }
 }

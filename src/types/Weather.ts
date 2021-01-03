@@ -1,6 +1,6 @@
 
 export interface IWeather {
-  temp: string;
+  temp: number;
   feelsLike: string;
   weatherID: number;
 }

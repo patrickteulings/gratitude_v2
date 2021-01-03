@@ -22,8 +22,8 @@
     </section>
     <section class="addGratitude__actions">
       <div class="section__inner">
-        {{ isSubmitting }}
-        <button @click="submitNewGratitude()">submit</button><span v-if="isSubmitting === true">loading...</span>
+        <button @click="submitNewGratitude()">submit</button>
+        <span v-if="isSubmitting === true">loading...</span>
       </div>
     </section>
   </div>

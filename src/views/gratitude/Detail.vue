@@ -67,7 +67,7 @@ export default defineComponent({
     }
 
     const getWeather = (gratitude: IGratitude) => {
-      return (gratitude.weather.temp && gratitude.weather.weatherID) ? { temp: gratitude.weather.temp, icon: `wi wi-owm-${gratitude.weather.weatherID}` } : null
+      return (gratitude.weather.temp && gratitude.weather.weatherID) ? { temp: Math.round(gratitude.weather.temp), icon: `wi wi-owm-${gratitude.weather.weatherID}` } : null
     }
 
     const parallax = () => {
