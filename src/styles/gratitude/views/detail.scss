@@ -1,4 +1,9 @@
 .detail {
+
+  .section__inner {
+    max-width: 768px;
+  }
+
   &__title {
     padding: 2rem 0;
 
@@ -29,6 +34,10 @@
     font-family: $heading-font-face-playfair;
     display: flex;
     justify-content: space-between;
+
+    @include mq('desktop', 'min') {
+      @include innerspace(0, 0);
+    }
 
     .weather {
       opacity: 0.6;

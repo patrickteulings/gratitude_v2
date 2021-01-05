@@ -117,6 +117,7 @@ export default defineComponent({
     })
 
     onMounted(() => {
+      state.filteredGratitudes = []
       state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
       state.filteredGratitudes = gratitudeList()
     })

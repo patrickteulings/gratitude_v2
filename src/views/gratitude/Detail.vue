@@ -1,6 +1,6 @@
 <template>
   <div class="view detail">
-    <section class="detail">
+    <section class="section detail">
       <div class="section__inner">
         <div class="detail__meta" v-if="getGratitude" :style="[getMood(getGratitude), parallax()]" style="color: #fff;">
           <span class="date">{{ getDate(getGratitude) }}</span><span class="weather" v-if="getWeather(getGratitude)">{{ getWeather(getGratitude).temp }}&deg;C <i :class="getWeather(getGratitude).icon"></i></span>
