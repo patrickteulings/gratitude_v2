@@ -22,6 +22,11 @@ const routes: any[] = [
     component: () => import('../views/gratitude/Detail.vue')
   },
   {
+    path: '/gratitude/edit/:id',
+    name: 'gratitude/edit',
+    component: () => import('../views/gratitude/Edit.vue')
+  },
+  {
     path: '/gratitude/new',
     name: 'addgratitude',
     component: () => import('../views/gratitude/AddGratitude.vue')

@@ -1,7 +1,10 @@
 <template>
   <div class="gratitudeCard">
     <div class="gratitudeCard__inner hasHabits">
-      <small class="date"><span class="date__mood" :style="getMoodStyle(gratitude)"></span> {{ getReadableDate(gratitude.timeStamp.toDate()) }}<span v-if="gratitude.weather.weatherID"><i :class="getWeatherIcon(gratitude)"></i></span></small>
+      <small class="date">
+        <span class="date__mood" :style="getMoodStyle(gratitude)"></span>
+        <span>{{ getReadableDate(gratitude.timeStamp.toDate()) }}</span>
+        <span class="mood__weather" v-if="gratitude.weather.weatherID"><i :class="getWeatherIcon(gratitude)"></i></span></small>
       <h1 class="gratitudeCard__title">{{ gratitude.title }}</h1>
       <div class="gratitudeCard__body" v-html="gratitude.body"></div>
       <div class="gratitudeCard__tags">

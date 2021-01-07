@@ -28,11 +28,6 @@
       weatherLoading {{ weatherLoading }}<br>
       weaherresponse {{ weatherResponse }}
     </div>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-link to="/gratitude/new">add gratitude</router-link>
-    </div>
   </div>
 </template>
 

@@ -27,7 +27,7 @@ export default defineComponent({
     // console.log(paths[props.iconProperties.name])
 
     // const selectedIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="${props.iconProperties.size}" height="${props.iconProperties.size}" viewBox="0 0 24 24" fill="none" stroke=${props.iconProperties.strokeColor} stroke-width="${props.iconProperties.strokeWidth}" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="${paths[props.iconProperties.name]}"></polyline></svg>`
-    const selectedIcon = `<img src="./assets/icons/feather/${props.iconProperties.name}.svg"/>`
+    const selectedIcon = `<img src="/assets/icons/feather/${props.iconProperties.name}.svg"/>`
     return {
       selectedIcon
     }

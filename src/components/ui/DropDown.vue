@@ -1,5 +1,6 @@
 <template>
   <div class="dropdown dropDownWrapper" :class="classModifier">
+    <div class="dropdown__chevron" :class="{'is-open' : isOpen}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
     <div class="dropdown__trigger" :class="{'is-open' : isOpen}" :style="getItemColor(selected)" @click="toggleDropdown">{{ getFormattedItemLabel(selected) }}</div>
     <div class="dropdown__list" :class="{'is-open' : isOpen}">
       <div class="dropdown__item" :class="[isSelectedItem(colorItem) ? 'hidden': '']" :style="getItemColor(colorItem)" @click="setSelectedItem(colorItem)" v-for="(colorItem) in listData" :key="colorItem.value">
@@ -13,8 +14,6 @@
 
 // Core
 import { defineComponent, reactive, onMounted, onBeforeUnmount, toRefs } from 'vue'
-import store from '@/store'
-
 
 // Helpers
 // import { EventBus } from '@/helpers/eventbus'
@@ -25,7 +24,9 @@ import { IMood } from '@/types/Mood'
 
 export default defineComponent({
   name: 'DropDown',
+  components: {
 
+  },
   props: {
     listData: Array,
     classModifier: String
@@ -60,7 +61,7 @@ export default defineComponent({
     }
 
     const getFormattedItemLabel = (colorItem: IMood): string => {
-      return (colorItem.label !== undefined) ? colorItem.label : ''
+      return (colorItem.label !== undefined) ? colorItem.label : 'Select a general mood'
     }
 
     const isSelectedItem = (item: IMood) => {

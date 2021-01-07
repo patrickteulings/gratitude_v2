@@ -43,4 +43,8 @@
   i {
     font-style: italic;
   }
+
+  &--edit {
+    @include font-size(16px);
+  }
 }

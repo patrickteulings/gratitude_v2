@@ -1,7 +1,17 @@
 .btn {
   @include transition();
-  @include card-shadow(2);
   @include flex-center('both');
+  @include transition();
+  @include innerspace(0.8rem, 1.2rem);
+  font-family: $button-font-face;
+  text-transform: uppercase;
+  font-weight: 300;
+
+  border: 0;
+  appearance: none;
+  background: lighten(color('primary'), 10%);
+  color: color('white');
+  border-radius: 20px;
 
   &--round {
     @include size(64px);
@@ -29,12 +39,10 @@
   }
 
   &--delete {
-    background: #C8285C;
-    text-transform: uppercase;
-    font-family: $handwriting-font-face;
-    font-weight: bold;
     display: block;
-    width: 100%;
+    color: color('white');
+    background: darken(color('primary'), 2%);
+    // width: 100%;
   }
 
   &--hamburger {
@@ -57,9 +65,19 @@
         width: calc(90% - 16px);
       }
     }
+  }
 
-    &:focus {
-      outline: none;
+  &:focus {
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .spinner {
+    .path {
+      stroke: #FFF;
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="home--wrapper">
-      <hero />
+      <Hero />
       <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection" />
       <MonthsAgo :currentDate="thisDayAMonthAgo" @onclicked="goToDetailPage" />
       <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)" />
@@ -61,10 +61,12 @@ export default defineComponent({
     })
 
     // List with all itesm, sorted by date
-    const gratitudeList = () =>
-      state.filteredGratitudes.sort(
+    const gratitudeList = () => {
+      const set = new Set([...state.filteredGratitudes])
+      return Array.from(set).sort(
         (a, b) => b.data.timeStamp.toDate() - a.data.timeStamp.toDate()
       )
+    }
 
     // Returns the date as words (eg. one day ago) until x-days ago
     const getReadableDate = (_date: Date): string => useDate().formatDateToWordsWithLimit(_date, 10)
@@ -117,7 +119,6 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      state.filteredGratitudes = []
       state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
       state.filteredGratitudes = gratitudeList()
     })

@@ -7,6 +7,7 @@ import subMonths from 'date-fns/subMonths'
 
 // Interfaces
 import { IGratitudeWrapper } from '@/types/Gratitude'
+import { subWeeks } from 'date-fns'
 
 export const useGratitudeFilters = () => {
   const allGratitudes: Array<IGratitudeWrapper> = store.getters['gratitudeStore/getGratitudes']
@@ -40,9 +41,25 @@ export const useGratitudeFilters = () => {
     return filteredGratitudes
   }
 
+  const getLastWeeksGratitude = (_date: Date = new Date(), _weeksToSubtract = 1) => {
+    const duplicate: Array<IGratitudeWrapper> = [...allGratitudes]
+    const pastDate = subWeeks(_date, _weeksToSubtract)
+    const filteredGratitudes: IGratitudeWrapper[] = []
+
+    duplicate.map((gratitudewrapper: IGratitudeWrapper) => {
+      const { data: gratitude } = gratitudewrapper
+      const dayStamp = gratitude.dayStamp.toDate()
+
+      if (isSameDay(dayStamp, pastDate)) filteredGratitudes.push(gratitudewrapper)
+    })
+
+    return filteredGratitudes
+  }
+
   return {
     getGratitudesPerDay,
     getLastMonthsGratitude,
+    getLastWeeksGratitude,
     allGratitudes
   }
 }

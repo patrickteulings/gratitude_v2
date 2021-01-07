@@ -44,7 +44,8 @@ export default defineComponent({
     watch(props, (props) => {
       propsDate.value = new Date(props.currentDate)
       pastEntries.value = []
-      console.log(useGratitudeFilters().getLastMonthsGratitude(propsDate.value))
+      console.log('getLastMonthsGratitude ', useGratitudeFilters().getLastMonthsGratitude(propsDate.value))
+      console.log('getLastWeeksGratitude ', useGratitudeFilters().getLastWeeksGratitude(propsDate.value))
       const el = useGratitudeFilters().getLastMonthsGratitude(propsDate.value)
 
       el.forEach((gratitude) => {

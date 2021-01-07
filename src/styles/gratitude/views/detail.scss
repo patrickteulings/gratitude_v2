@@ -1,5 +1,9 @@
 .detail {
 
+  >.section {
+    padding: 0 24px;
+  }
+
   .section__inner {
     max-width: 768px;
   }
@@ -16,7 +20,8 @@
 
     &.section {
       margin-top: 0;
-      @include innerspace(16px, 24px);
+      padding-top: 16px;
+      padding-bottom: 16px;
     }
   }
   &__body {
@@ -30,7 +35,6 @@
     }
   }
   &__meta {
-    @include innerspace(0, 24px);
     font-family: $heading-font-face-playfair;
     display: flex;
     justify-content: space-between;

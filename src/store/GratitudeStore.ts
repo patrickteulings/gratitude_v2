@@ -8,6 +8,7 @@ import { IWeather } from '@/types/Weather'
 
 const ADD_MULTIPLE_GRATITUDES = 'ADD_MULTIPLE_GRATITUDES'
 const ADD_GRATITUDE = 'ADD_GRATITUDE'
+const UPDATE_GRATITUDE = 'UPDATE_GRATITUDE'
 const SET_CURRENT_LOCATION = 'SET_CURRENT_LOCATION'
 const SET_CURRENT_WEATHER = 'SET_CURRENT_WEATHER'
 const SAVE_GRATITUDE = 'SAVE_GRATITUDE'
@@ -47,6 +48,18 @@ export const GratitudeStore = {
         console.error('Error writing document: ', error)
       }).finally(() => {
         console.log('SAVE_GRATITUDE: finally')
+      })
+    },
+
+    UPDATE_GRATITUDE: (state: any, payload: IGratitudeWrapper): void => {
+      const userID = (payload.data && payload.data.user) ? payload.data.user.uid : ''
+      const docRef = db.collection('users').doc(userID).collection('gratitudes').doc(payload.id)
+      docRef.set(payload.data).then((result: any) => {
+        console.log('success', result)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        console.log('FINALLY')
       })
     },
 
@@ -90,6 +103,17 @@ export const GratitudeStore = {
     addSingleGratitude: (context, gratitude: IGratitude): void => {
       const { commit } = context
       commit(ADD_GRATITUDE, gratitude)
+    },
+
+    updateGratitude: (context, gratitude: IGratitudeWrapper): void => {
+      const { commit } = context
+      commit(UPDATE_GRATITUDE, gratitude)
+    },
+
+    deleteGratitude: (context, gratitude: IGratitudeWrapper) => {
+      const userID = (gratitude.data && gratitude.data.user) ? gratitude.data.user.uid : ''
+      const ref = db.collection('users').doc(userID).collection('gratitudes').doc(gratitude.id)
+      return ref.delete()
     },
 
     setLocation: (context, location: ILocation): void => {
