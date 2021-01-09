@@ -37,7 +37,7 @@
             </svg>
           </div>
         </button>
-        <button @click="deleteGratitude()" class="btn btn--delete">Delete</button>
+        <button @click="handleDelete()" class="btn btn--delete" :class="{confirm: deleteWarningShown}"><span v-if="deleteWarningShown">Are you shure?</span><span v-else>Delete</span></button>
 
       </div>
 
@@ -68,6 +68,7 @@ interface IState {
   data: IGratitude | null;
   scrollY: number;
   scroll: any;
+  deleteWarningShown: boolean;
 }
 
 export default defineComponent({
@@ -78,6 +79,7 @@ export default defineComponent({
     const state = reactive({
       data: null,
       count: 0,
+      deleteWarningShown: false,
       originalGratitude: store.getters['gratitudeStore/getGratitudes'].find(item => item.id === router.currentRoute.value.params.id),
       editedGratitude: store.getters['gratitudeStore/getGratitudes'].find(item => item.id === router.currentRoute.value.params.id),
       moods: store.getters['moodStore/getMoods'],
@@ -111,7 +113,7 @@ export default defineComponent({
     }
 
     const getWeather = (gratitude: IGratitude) => {
-      return (gratitude.weather.temp && gratitude.weather.weatherID) ? { temp: Math.round(gratitude.weather.temp), icon: `wi wi-owm-${gratitude.weather.weatherID}` } : null
+      return (gratitude.weather && gratitude.weather.weatherID) ? { temp: Math.round(gratitude.weather.temp), icon: `wi wi-owm-${gratitude.weather.weatherID}` } : null
     }
 
     const parallax = () => {
@@ -154,10 +156,15 @@ export default defineComponent({
       })
     }
 
-    const deleteGratitude = () => {
-      store.dispatch('gratitudeStore/deleteGratitude', state.originalGratitude).then(() => {
-        console.log('deleted')
-      })
+    // Deleting is a two-step process. First click asks for a confirmation
+    const handleDelete = () => {
+      if (state.deleteWarningShown) {
+        store.dispatch('gratitudeStore/deleteGratitude', state.originalGratitude).then(() => {
+          console.log('deleted')
+        })
+      } else {
+        state.deleteWarningShown = true
+      }
     }
 
     onMounted(() => {
@@ -185,7 +192,7 @@ export default defineComponent({
       handleMoodEdit,
       original,
       submitGratitude,
-      deleteGratitude,
+      handleDelete,
       temperature: computed(() => store.getters['gratitudeStore/getWeather'])
     }
   }

@@ -60,7 +60,6 @@
     @include innerspace(0rem, 1rem);
     @include outerspace(1rem, 0rem);
     @include font-size(14px);
-    // font-family: $heading-font-face-playfair;
     color: color('primary');
 
     &.hidden {

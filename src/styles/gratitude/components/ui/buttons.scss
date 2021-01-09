@@ -42,7 +42,10 @@
     display: block;
     color: color('white');
     background: darken(color('primary'), 2%);
-    // width: 100%;
+
+    &.confirm {
+      background: color('accent');
+    }
   }
 
   &--hamburger {
