@@ -37,6 +37,7 @@ export default function () {
   const { response, fetching, fetchError, getStreetAddressFrom } = useGeoLocationApi()
 
   const success = (position: IGeolocationPosition) => {
+    console.log('GEO SUCCESS', position)
     state.locationLoading = false
     state.msg = 'Location success'
     state.latitude = position.coords.latitude
@@ -47,6 +48,7 @@ export default function () {
 
 
   const error = (positionError: IGeolocationPositionError) => {
+    console.log('GEO error')
     if (positionError) {
       console.log(positionError.code)
       state.locationLoading = false
@@ -60,6 +62,7 @@ export default function () {
 
   if (!navigator.geolocation) {
     state.msg = 'Geolocation is not supported by your browser'
+    console.log('NO GEO available')
   } else {
     state.msg = 'Locating…'
     navigator.geolocation.getCurrentPosition(

@@ -5,22 +5,22 @@
         <div class="date">{{ getDate() }}</div>
       </div>
     </section>
-    <section class="addGratitude__title">
+    <section class="section addGratitude__title">
       <div class="section__inner">
         <ContentEditable className="contenteditableHeader" @update-content="handleTitleUpdate" />
       </div>
     </section>
-    <section class="addGratitude__body">
+    <section class="section addGratitude__body">
       <div class="section__inner">
         <ContentEditable className="contenteditableBody paragraph" @update-content="handleBodyUpdate" />
       </div>
     </section>
-    <section class="addGratitude__dropdown">
+    <section class="section addGratitude__dropdown">
       <div class="section__inner">
         <drop-down :listData="moods" @onupdate="handleMoodUpdate"></drop-down>
       </div>
     </section>
-    <section class="addGratitude__actions">
+    <section class="section addGratitude__actions">
       <div class="section__inner">
         <button class="btn" @click="submitNewGratitude()">Add Gratitude</button>
         <span v-if="isSubmitting === true">loading...</span>

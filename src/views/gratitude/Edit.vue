@@ -37,10 +37,8 @@
             </svg>
           </div>
         </button>
-        <button @click="handleDelete()" class="btn btn--delete" :class="{confirm: deleteWarningShown}"><span v-if="deleteWarningShown">Are you shure?</span><span v-else>Delete</span></button>
-
+        <button @click="handleDelete()" class="btn btn--delete" :class="{confirm: deleteWarningShown}"><span v-if="deleteWarningShown">Are you sure?</span><span v-else>Delete</span></button>
       </div>
-
     </section>
   </div>
 </template>
@@ -67,7 +65,7 @@ interface IState {
   user: IUser;
   data: IGratitude | null;
   scrollY: number;
-  scroll: any;
+  scroll: Function;
   deleteWarningShown: boolean;
 }
 
@@ -103,7 +101,9 @@ export default defineComponent({
       return filtered.data
     })
 
-    const getDate = (gratitude: IGratitude) => useDate().getDefaultFormat(gratitude.timeStamp.toDate())
+    const getDate = (gratitude: IGratitude) => {
+      return useDate().getDefaultFormat(gratitude.timeStamp.toDate())
+    }
 
     const getMood = (gratitude: IGratitude) => {
       return {

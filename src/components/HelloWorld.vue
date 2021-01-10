@@ -1,10 +1,26 @@
 <template>
   <div class="hello">
     <div class="home--wrapper">
-      <Hero />
-      <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection" />
-      <MonthsAgo :currentDate="thisDayAMonthAgo" @onclicked="goToDetailPage" />
-      <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)" />
+      <section class="section">
+        <div class="section__inner">
+          <Hero />
+        </div>
+      </section>
+      <section class="section">
+        <div class="section__inner">
+          <DateBar @dateSelected="onDateSelection" @resetDateSelection="onResetDateSelection" />
+        </div>
+      </section>
+      <section class="section">
+        <div class="section__inner">
+          <MonthsAgo :currentDate="thisDayAMonthAgo" @onclicked="goToDetailPage" />
+        </div>
+      </section>
+      <section class="section">
+        <div class="section__inner">
+          <GratitudeCard style="position: relative; z-index: 2;" v-for="gratitude in filteredGratitudes" :key="gratitude.id" :gratitudeData="gratitude" @click="goToDetailPage(gratitude)" />
+        </div>
+      </section>
     </div>
     <div v-if="filteredGratitudes.length">yes, gevonden
     </div><div v-else>Not yet</div>
@@ -30,7 +46,7 @@ import { IGratitudeWrapper } from '@/types/Gratitude'
 import { useGyro } from '@/use/useGyro'
 
 // Interfaces
-
+// Gotta go, fijne meeting!
 
 // Go Time
 export default defineComponent({
