@@ -46,7 +46,7 @@ import { IGratitudeWrapper } from '@/types/Gratitude'
 import { useGyro } from '@/use/useGyro'
 
 // Interfaces
-// Gotta go, fijne meeting!
+
 
 // Go Time
 export default defineComponent({
