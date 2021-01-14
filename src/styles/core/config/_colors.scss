@@ -15,7 +15,10 @@ $primary-colors: (
   'white': #ffffff,
   'black': #111111,
   'light': #C4C4C4,
-  'olive': #C6C150
+  'olive': #C6C150,
+  'menu': #547276,
+  'menu-accent': #A7A233
+
 
   // https://colorhunt.co/palette/167311
 );
@@ -81,6 +84,10 @@ $color-combinations: (
   ),
   'olive': (
     'background': map-get($primary-colors, 'olive'),
+    'color': map-get($primary-colors, 'white'),
+  ),
+  'menu': (
+    'background': map-get($primary-colors, 'menu'),
     'color': map-get($primary-colors, 'white'),
   )
 );

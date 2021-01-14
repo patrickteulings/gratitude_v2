@@ -15,7 +15,7 @@ import { defineComponent, computed } from 'vue'
 import store from '@/store'
 
 // Interfaces
-import { IUser } from '@/types/UserType'
+// import { IUser } from '@/types/UserType'
 
 export default defineComponent({
   setup () {

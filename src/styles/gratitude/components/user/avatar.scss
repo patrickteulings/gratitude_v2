@@ -18,6 +18,7 @@ $avatar-sizes: (
   @include flex-center('both');
 
   background: color('primary');
+  overflow: hidden;
   cursor: pointer;
 
   img {
