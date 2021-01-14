@@ -13,6 +13,10 @@
   color: color('white');
   border-radius: 20px;
 
+  &--secondary {
+    background-color: darken(#014B52, 2%);
+  }
+
   &--round {
     @include size(64px);
     @include innerspace(24px);

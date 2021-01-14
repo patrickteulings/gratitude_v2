@@ -26,10 +26,6 @@
             <a class="navigation__link" @click.prevent="navigateTo('/')" href="/">Home</a>
           </li>
           <li class="navigation__item">
-            <span class="navigation__icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg></span>
-            <a class="navigation__link" @click.prevent="navigateTo('/about')" href="/about">About</a>
-          </li>
-          <li class="navigation__item">
             <span class="navigation__icon"><svg xmlns="http://www.w3.org/2000/svg" width=18 height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-toggle-left"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"></rect><circle cx="8" cy="12" r="3"></circle></svg></span>
             <a class="navigation__link" @click.prevent="navigateTo('/gratitude/habits')" href="/gratitude/habits">Habits</a>
           </li>

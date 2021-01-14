@@ -7,12 +7,12 @@
     </section>
     <section class="section addGratitude__title">
       <div class="section__inner">
-        <ContentEditable className="contenteditableHeader" @update-content="handleTitleUpdate" />
+        <ContentEditable ref='titleElementRef' className="contenteditableHeader" @update-content="handleTitleUpdate" />
       </div>
     </section>
     <section class="section addGratitude__body">
       <div class="section__inner">
-        <ContentEditable className="contenteditableBody paragraph" @update-content="handleBodyUpdate" />
+        <ContentEditable ref='bodyElementRef' className="contenteditableBody paragraph" @update-content="handleBodyUpdate" />
       </div>
     </section>
     <section class="section addGratitude__dropdown">
@@ -22,8 +22,18 @@
     </section>
     <section class="section addGratitude__actions">
       <div class="section__inner">
-        <button class="btn" @click="submitNewGratitude()">Add Gratitude</button>
-        <span v-if="isSubmitting === true">loading...</span>
+        <button class="btn" @click="submitNewGratitude()">
+          <span v-if="!submitted && !isSubmitting">Add Gratitude</span>
+          <span v-else-if="submitted && !isSubmitting">Update Gratitude</span>
+          <div class="spinnerContainer" v-else>
+            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+              <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+          </div>
+
+        </button>
+        <button v-if="submitted" class="btn btn--secondary" @click="clearGratitude()">Clear / new</button>
+        <!-- <span v-if="isSubmitting === true">loading...</span> -->
       </div>
     </section>
   </div>
@@ -31,7 +41,7 @@
 
 <script lang="ts">
 // Core
-import { reactive, toRefs, defineComponent, onMounted } from 'vue'
+import { reactive, ref, toRefs, defineComponent, onMounted } from 'vue'
 import router from '@/router'
 import store from '@/store'
 
@@ -54,6 +64,7 @@ interface IState {
   body: string;
   selectedMood: IMood | null;
   isSubmitting: boolean;
+  submitted: boolean;
 }
 
 export default defineComponent({
@@ -69,8 +80,12 @@ export default defineComponent({
       title: '',
       body: '',
       selectedMood: null,
-      isSubmitting: false
+      isSubmitting: false,
+      submitted: false
     })
+
+    const titleElementRef = ref()
+    const bodyElementRef = ref()
 
     // Handle emitted new Title text from ContentEditable
     const handleTitleUpdate = (content: string): void => {
@@ -86,7 +101,20 @@ export default defineComponent({
       state.selectedMood = mood
     }
 
+    const handleSubmitted = () => {
+      console.log('handleSubmitted')
+      titleElementRef.value.resetView()
+      bodyElementRef.value.resetView()
+    }
+
+    const clearGratitude = () => {
+      titleElementRef.value.resetView()
+      bodyElementRef.value.resetView()
+      state.submitted = false
+    }
+
     // Let's save this to Firestore
+    // @ TODO run update script instead of 'ADD' when
     const submitNewGratitude = () => {
       state.isSubmitting = true
 
@@ -100,9 +128,13 @@ export default defineComponent({
         mood: state.selectedMood,
         user: state.user
       }
+
       // Save to firebase
       store.dispatch('gratitudeStore/saveGratitude', newGratitude).then(() => {
-        setTimeout(() => { state.isSubmitting = false }, 1900)
+        setTimeout(() => {
+          state.isSubmitting = false
+          state.submitted = true
+        }, 1900)
       })
     }
 
@@ -115,7 +147,6 @@ export default defineComponent({
           state.selectedMood = mood
         }
       }
-      console.log(state.selectedMood)
     })
 
     return {
@@ -125,7 +156,10 @@ export default defineComponent({
       submitNewGratitude,
       handleTitleUpdate,
       handleBodyUpdate,
-      handleMoodUpdate
+      handleMoodUpdate,
+      clearGratitude,
+      titleElementRef,
+      bodyElementRef
     }
   }
 })

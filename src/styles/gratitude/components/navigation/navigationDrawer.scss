@@ -16,6 +16,10 @@ $menuWidth: 300px;
   &.opened {
     transition: all 0.3s $custom-ease-out;
     transform: translateX(0);
+
+    .btn--hamburger {
+      display: none;
+    }
   }
 
   &.closed {
@@ -90,6 +94,8 @@ $menuWidth: 300px;
 ---------------------------------------- */
 
 .navigation {
+  @include position;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   flex-grow: 2;
@@ -129,7 +135,7 @@ $menuWidth: 300px;
 
   &__item.add {
     color: color('menu-accent');
-    // @include outerspace(2rem, 0rem);
+    @include outerspace(2rem, 0rem);
     margin-left: -0.2rem;
 
     .navigation__link {
