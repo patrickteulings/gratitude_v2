@@ -1,6 +1,6 @@
 <template>
   <div class="view addGratitude">
-    <section class="addGratitude__date">
+    <section class="section addGratitude__date">
       <div class="section__inner">
         <div class="date">{{ getDate() }}</div>
       </div>

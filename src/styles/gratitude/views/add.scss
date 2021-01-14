@@ -1,4 +1,7 @@
 .addGratitude {
+  .section {
+    @include innerspace(0, 24px);
+  }
   &__actions {
     padding-top: 0.8rem;
 

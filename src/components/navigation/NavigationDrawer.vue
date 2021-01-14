@@ -50,9 +50,9 @@
         </ul>
       </nav>
       <div class="navigationDrawer__illustration">
-        <div class="illustration-tree"><img src="assets/images/menu/tree.svg" role="presentation"></div>
-        <div class="illustration-mountain-left"><img src="assets/images/menu/mountain-left.svg" role="presentation"></div>
-        <div class="illustration-mountain-right"><img src="assets/images/menu/mountain-right.svg" role="presentation"></div>
+        <div class="illustration-tree"><img src="/assets/images/menu/tree.svg" role="presentation"></div>
+        <div class="illustration-mountain-left"><img src="/assets/images/menu/mountain-left.svg" role="presentation"></div>
+        <div class="illustration-mountain-right"><img src="/assets/images/menu/mountain-right.svg" role="presentation"></div>
       </div>
     </div>
     <div @click="toggleMenu" class="navigationDrawer__underlay" title="click to close menu"></div>
