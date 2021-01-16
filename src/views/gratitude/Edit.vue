@@ -191,9 +191,9 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      if (!store.getters['gratitudeStore/loadGratitudes']) {
-        store.dispatch('gratitudeStore/loadGratitudes', state.user)
-      }
+      // if (!store.getters['gratitudeStore/getGratitudes'].length) {
+      //   store.dispatch('gratitudeStore/loadGratitudes', state.user)
+      // }
     })
 
     watch(state.scroll, (oldScrollPosition, newScrollPosition) => {

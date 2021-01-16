@@ -135,6 +135,8 @@ export default defineComponent({
     })
 
     onMounted(() => {
+      console.log('MOUNTED', store.getters['gratitudeStore/getGratitudes'])
+      state.filteredGratitudes = []
       state.filteredGratitudes = store.getters['gratitudeStore/getGratitudes']
       state.filteredGratitudes = gratitudeList()
     })

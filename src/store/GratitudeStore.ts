@@ -76,6 +76,7 @@ export const GratitudeStore = {
   actions: {
     // loadGratitudes: (context: any, user: any): Promise<firebase.firestore.QuerySnapshot> => {
     loadGratitudes: (context: any, user: any): void => {
+      console.log('LOADING')
       const { commit } = context
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').orderBy('timeStamp', 'desc').limit(20).get()
 
