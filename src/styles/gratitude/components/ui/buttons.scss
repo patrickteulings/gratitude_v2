@@ -13,6 +13,8 @@
   color: color('white');
   border-radius: 20px;
 
+  // @include transition(padding);
+
   &--secondary {
     background-color: darken(#014B52, 2%);
   }
@@ -36,6 +38,11 @@
     svg {
       @include size(16px);
     }
+  }
+
+  &.isSubmitting {
+    @include innerspace(0.8rem, 0.95rem);
+    border-radius: 100%;
   }
 
   .gratitude-icon {

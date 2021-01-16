@@ -22,7 +22,7 @@
     </section>
     <section class="section addGratitude__actions">
       <div class="section__inner">
-        <button class="btn" @click="submitNewGratitude()">
+        <button class="btn" :class="{ 'isSubmitting': isSubmitting }" @click="submitNewGratitude()">
           <span v-if="!submitted && !isSubmitting">Add Gratitude</span>
           <span v-else-if="submitted && !isSubmitting">Update Gratitude</span>
           <div class="spinnerContainer" v-else>
@@ -54,7 +54,7 @@ import DropDown from '@/components/ui/DropDown.vue'
 
 // Interfaces
 import { IUser } from '@/types/UserType'
-import { IGratitude } from '@/types/Gratitude'
+import { IGratitude, IGratitudeWrapper } from '@/types/Gratitude'
 import { IMood } from '@/types/Mood'
 
 interface IState {
@@ -101,12 +101,6 @@ export default defineComponent({
       state.selectedMood = mood
     }
 
-    const handleSubmitted = () => {
-      console.log('handleSubmitted')
-      titleElementRef.value.resetView()
-      bodyElementRef.value.resetView()
-    }
-
     const clearGratitude = () => {
       titleElementRef.value.resetView()
       bodyElementRef.value.resetView()
@@ -129,8 +123,23 @@ export default defineComponent({
         user: state.user
       }
 
+      // If Already submitted, update instead of adding new
+      if (state.submitted === true) {
+        state.submitted = false
+
+        const wrapper: IGratitudeWrapper = { id: store.getters['gratitudeStore/getCurrentGratitude'].id, data: newGratitude }
+        store.dispatch('gratitudeStore/updateGratitude', wrapper).then(() => {
+          setTimeout(() => {
+            state.isSubmitting = false
+            state.submitted = true
+          }, 1000)
+        })
+
+        return
+      }
+
       // Save to firebase
-      store.dispatch('gratitudeStore/saveGratitude', newGratitude).then(() => {
+      store.dispatch('gratitudeStore/saveGratitude', newGratitude).then((response) => {
         setTimeout(() => {
           state.isSubmitting = false
           state.submitted = true

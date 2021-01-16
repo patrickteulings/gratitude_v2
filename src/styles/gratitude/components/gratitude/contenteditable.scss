@@ -21,6 +21,12 @@
   i {
     font-style: italic;
   }
+
+  &.ghosted {
+    opacity: 0.2;
+    filter: blur(4px);
+  }
+
 }
 
 .contenteditableBody {
@@ -48,5 +54,10 @@
 
   &--edit {
     @include font-size(16px);
+  }
+
+  &.ghosted {
+    opacity: 0.2;
+    filter: blur(4px);
   }
 }

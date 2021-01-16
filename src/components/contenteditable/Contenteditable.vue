@@ -35,7 +35,7 @@ const ContentEditable = defineComponent({
     const handleFocus = (e: { target: HTMLInputElement }) => {
       // const el: HTMLInputElement = e.target
 
-      // if (el.innerHTML !== beasty.value) return
+      // if (el.innerText !== beasty.value) return
 
       // const setpos = document.createRange()
       // const set = window.getSelection()
@@ -56,9 +56,9 @@ const ContentEditable = defineComponent({
       beasty.value = `It's called Gratitude`
 
       for (const el of contenteditableFields) {
-        el.innerHTML = ''
-        el.innerHTML = beasty.value
-        equalToPlaceHolder.value = (el.innerHTML === beasty.value)
+        el[0].innerText = ''
+        el[0].innerText = beasty.value
+        equalToPlaceHolder.value = (el[0].innerText === beasty.value)
       }
     }
 
@@ -66,7 +66,7 @@ const ContentEditable = defineComponent({
     const handleKeyDown = (e: { target: HTMLInputElement }): void => {
       const el: HTMLInputElement = e.target
 
-      if (el.innerHTML.trim() === beasty.value) el.innerHTML = ''
+      if (el.innerText === beasty.value) el.innerText = ''
     }
 
     // Handles placeholder text and classnames
@@ -75,12 +75,12 @@ const ContentEditable = defineComponent({
       const el: HTMLInputElement = e.target
 
       // Reset to placeholder if no text is entered
-      if (!el.innerHTML.length) el.innerHTML = beasty.value
+      if (!el.innerText.length) el.innerText = beasty.value
 
       // handles classname if there is / is not any text / placeholder
-      equalToPlaceHolder.value = (el.innerHTML === beasty.value)
+      equalToPlaceHolder.value = (el.innerText === beasty.value)
 
-      context.emit('update-content', el.innerHTML)
+      context.emit('update-content', el.innerText)
     }
 
     onMounted(() => {

@@ -43,6 +43,11 @@
       @include innerspace(0, 0);
     }
 
+    &.ghosted {
+      opacity: 0.2;
+      filter: blur(4px);
+    }
+
     .weather {
       opacity: 0.6;
       text-align: right;

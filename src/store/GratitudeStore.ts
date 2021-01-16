@@ -18,7 +18,8 @@ export const GratitudeStore = {
   state: reactive({
     gratitudes: [],
     location: null,
-    weather: null
+    weather: null,
+    currentGratitude: null
   }),
 
 
@@ -32,8 +33,6 @@ export const GratitudeStore = {
     },
 
     SAVE_GRATITUDE: (state, payload: IGratitude) => {
-      // console.log('trying', state.rootState.userStore.user)
-      // state.gratitudes.push(payload)
       const userID = (payload.user !== undefined) ? payload.user.uid : ''
       const ref = db.collection('users').doc(userID).collection('gratitudes')
 
@@ -42,6 +41,7 @@ export const GratitudeStore = {
       ref.add(payload).then((response: firebase.firestore.DocumentReference) => {
         const getRef = db.collection('users').doc(userID).collection('gratitudes').doc(response.id).get().then((result: firebase.firestore.DocumentData) => {
           const gratitudeWrapper: IGratitudeWrapper = { id: result.id, data: result.data() }
+          state.currentGratitude = gratitudeWrapper
           state.gratitudes.push(gratitudeWrapper)
         })
       }).catch((error) => {
@@ -141,6 +141,9 @@ export const GratitudeStore = {
     },
     getWeather: (state): ILocation => {
       return state.weather
+    },
+    getCurrentGratitude: (state): IGratitudeWrapper => {
+      return state.currentGratitude
     }
   }
 }

@@ -2,14 +2,14 @@
   <div class="view detail">
     <section class="section detail">
       <div class="section__inner">
-        <div class="detail__meta" v-if="getGratitude" :style="[getMood(getGratitude), parallax()]" style="color: #fff;">
+        <div class="detail__meta" v-if="getGratitude" :style="[getMood(getGratitude), parallax()]" style="color: #fff;" :class="{'ghosted': doneDeleting}">
           <span class="date">{{ getDate(getGratitude) }}</span><span class="weather" v-if="getWeather(getGratitude)">{{ getWeather(getGratitude).temp }}&deg;C <i :class="getWeather(getGratitude).icon"></i></span>
         </div>
       </div>
     </section>
     <section class="section detail__title">
       <div class="section__inner">
-        <div contenteditable="true" class="contenteditableHeader" @keyup="handleTitleEdit">
+        <div contenteditable="true" class="contenteditableHeader" :class="{'ghosted': doneDeleting}" @keyup="handleTitleEdit">
           {{ getGratitude.title }}
         </div>
         <!-- <h1 v-if="getGratitude" :style="getMood(getGratitude)">
@@ -19,25 +19,36 @@
     </section>
     <section class="section detail__body">
       <div class="section__inner">
-        <div contenteditable="true" class="contenteditableBody contenteditableBody--edit paragraph" v-html="original.data.body" @keyUp="handleBodyEdit"></div>
+        <div contenteditable="true" class="contenteditableBody contenteditableBody--edit paragraph" :class="{'ghosted': doneDeleting}" v-html="original.data.body" @keyUp="handleBodyEdit"></div>
     </div>
     </section>
     <section class="section edit__dropdown">
       <div class="section__inner">
-        <drop-down :listData="moods" @onupdate="handleMoodEdit"></drop-down>
+        <drop-down :listData="moods" @onupdate="handleMoodEdit" :class="{'ghosted': doneDeleting}"></drop-down>
       </div>
     </section>
     <section class="section edit__actions">
       <div class="section__inner">
-        <button @click="submitGratitude()" class="btn">
-          <span v-if="isSubmitting === false">Update</span>
-          <div class="spinnerContainer" v-if="isSubmitting === true">
-            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-              <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-            </svg>
-          </div>
+          <button v-if="!doneDeleting && !isDeleting" @click="submitGratitude()" class="btn" :class="{'isSubmitting': isSubmitting}">
+            <span v-if="isSubmitting === false">Update</span>
+            <div class="spinnerContainer" v-if="isSubmitting === true">
+              <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </button>
+          <button v-if="!doneDeleting" @click="handleDelete()" class="btn btn--delete" :class="{confirm: deleteWarningShown, isSubmitting: isDeleting}">
+            <span v-if="deleteWarningShown && !isDeleting">Are you sure?</span>
+            <span v-else-if="!isDeleting">Delete</span>
+            <div class="spinnerContainer" v-if="isDeleting === true">
+              <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </button>
+        <button @click="handleBack()" class="btn btn--delete confirm" v-if="doneDeleting">
+          Back home
         </button>
-        <button @click="handleDelete()" class="btn btn--delete" :class="{confirm: deleteWarningShown}"><span v-if="deleteWarningShown">Are you sure?</span><span v-else>Delete</span></button>
       </div>
     </section>
   </div>
@@ -85,7 +96,9 @@ export default defineComponent({
       value: 'een value',
       scrollY: 0,
       scroll: useScroll(),
-      isSubmitting: false
+      isSubmitting: false,
+      isDeleting: false,
+      doneDeleting: false
     })
 
     const original = store.getters['gratitudeStore/getGratitudes'].find(item => item.id === router.currentRoute.value.params.id)
@@ -127,11 +140,11 @@ export default defineComponent({
     }
 
     const handleTitleEdit = (e) => {
-      editedTitle = e.target.innerHTML
+      editedTitle = e.target.innerText
     }
 
     const handleBodyEdit = (e) => {
-      editedBody = e.target.innerHTML
+      editedBody = e.target.innerText
     }
 
     const handleMoodEdit = (mood: IMood) => {
@@ -159,12 +172,22 @@ export default defineComponent({
     // Deleting is a two-step process. First click asks for a confirmation
     const handleDelete = () => {
       if (state.deleteWarningShown) {
+        state.isDeleting = true
+
         store.dispatch('gratitudeStore/deleteGratitude', state.originalGratitude).then(() => {
           console.log('deleted')
+          setTimeout(() => {
+            state.isDeleting = false
+            state.doneDeleting = true
+          }, 1000)
         })
       } else {
         state.deleteWarningShown = true
       }
+    }
+
+    const handleBack = () => {
+      router.push('/')
     }
 
     onMounted(() => {
@@ -193,6 +216,7 @@ export default defineComponent({
       original,
       submitGratitude,
       handleDelete,
+      handleBack,
       temperature: computed(() => store.getters['gratitudeStore/getWeather'])
     }
   }

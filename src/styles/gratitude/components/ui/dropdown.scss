@@ -69,5 +69,10 @@
       // border-bottom: 1px solid lighten(color('light'), 50%);
     }
   }
+
+  &.ghosted {
+    opacity: 0.2;
+    filter: blur(4px);
+  }
 }
 
