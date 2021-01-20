@@ -131,6 +131,12 @@ $menuWidth: 300px;
     svg {
     stroke: #BAC8CA;
     }
+
+    &.icon-sun{
+        svg {
+          stroke: darken(#BAC8CA, 20%);
+        }
+      }
   }
 
   &__item.add {

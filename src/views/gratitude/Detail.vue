@@ -97,12 +97,6 @@ export default defineComponent({
       router.push({ name: 'gratitude/edit', params: { id: gratitude.id } })
     }
 
-    onMounted(() => {
-      // if (!store.getters['gratitudeStore/getGratitudes'].length) {
-      //   store.dispatch('gratitudeStore/loadGratitudes', state.user)
-      // }
-    })
-
     watch(state.scroll, (oldScrollPosition, newScrollPosition) => {
       const { scrollY } = newScrollPosition
 
