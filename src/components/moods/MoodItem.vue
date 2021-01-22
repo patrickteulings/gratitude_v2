@@ -4,7 +4,7 @@
       <div class="moods-item__color" @click="handleItemClick">
         <span class="moods-item__color-dot" :style="{backgroundColor: selectedColor}"></span>
       </div>
-      <div class="moods-item__label" contenteditable="true">
+      <div class="moods-item__label" contenteditable="true" @keyup="handleLabelChange">
         {{ mood.label }}
       </div>
     </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, reactive } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 
 import { IMood } from '@/types/Mood'
 
@@ -39,6 +39,14 @@ export default defineComponent({
     const handleColorSelect = (color: string) => {
       console.log(color)
       selectedColor.value = color
+      mood.value = color
+    }
+
+    const handleLabelChange = (e: {target: HTMLDivElement}) => {
+      console.log('change', e, e.target)
+      const el: HTMLDivElement = e.target
+      console.log(el.innerHTML)
+      mood.label = el.innerText
     }
 
     return {
@@ -47,7 +55,8 @@ export default defineComponent({
       selectedColor,
       editColor,
       handleItemClick,
-      handleColorSelect
+      handleColorSelect,
+      handleLabelChange
     }
   }
 })

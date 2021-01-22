@@ -23,7 +23,8 @@ body.pampas {
   }
 
   &__color {
-    width: 2rem;
+    @include size(32px);
+    min-width: 32px;
   }
 
   &__color-dot {
@@ -37,6 +38,7 @@ body.pampas {
     flex-grow: 2;
     font-family: $heading-font-face-playfair;
     text-transform: capitalize;
+    line-height: 2rem;
     @include font-size(20px);
     color: color('primary');
 
@@ -106,5 +108,4 @@ body.pampas {
   .mountain-right {
     @include position(absolute, auto, auto, 0, 0);
   }
-
 }

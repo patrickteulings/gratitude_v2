@@ -13,7 +13,7 @@ module.exports = {
       startUrl: '.',
       display: 'standalone',
       themeColor: '182C34',
-      background_color: '#0F343C'
+      backgroundColor: '#0F343C'
     }
   }
 }
