@@ -1,13 +1,13 @@
 <template>
   <section class="section navigationDrawer" :class="[menuOpen ? 'opened' : 'closed']">
     <div class="section__inner">
-      <button class="btn--reset btn--hamburger" @click="toggleMenu">
+      <button v-if="fullMenu" class="btn--reset btn--hamburger" @click="toggleMenu">
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <div class="navigationDrawer__profile">
+      <div class="navigationDrawer__profile" v-if="user">
         <div class="profile__avatar">
           <div class="avatar">
             <img :src="user.photoURL" :alt="user.displayName">
@@ -61,12 +61,12 @@
 
 <script lang="ts">
 // Core
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, reactive, watch } from 'vue'
 import router from '@/router'
 import store from '@/store'
 
-// Interfaces
-// import { IUser } from '@/types/UserType'
+// Composables
+import { useRoute } from '@/use/useRoute'
 
 export default defineComponent({
   name: 'NavigationDrawer',
@@ -74,6 +74,8 @@ export default defineComponent({
     const menuOpen = ref<boolean>(false)
     const user = computed(() => store.getters['userStore/getUser'])
     const bodyElement = document.getElementsByTagName('body')[0]
+    const appRoute = reactive(useRoute())
+    const fullMenu = ref(true)
 
     const openMenu = (): void => {
       bodyElement.style.overflow = 'hidden'
@@ -94,13 +96,28 @@ export default defineComponent({
       closeMenu()
     }
 
+    const handleRouteChange = (route) => {
+      if (route && route.name === 'editMoods') {
+        fullMenu.value = false
+      } else {
+        fullMenu.value = true
+      }
+
+      console.log('handleRouteChange', fullMenu.value)
+    }
+
+    watch(appRoute, (args) => {
+      handleRouteChange(args.appRoute)
+    })
+
     return {
       user,
       toggleMenu,
       openMenu,
       closeMenu,
       menuOpen,
-      navigateTo
+      navigateTo,
+      fullMenu
     }
   }
 })

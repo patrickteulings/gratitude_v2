@@ -17,8 +17,8 @@ $primary-colors: (
   'light': #C4C4C4,
   'olive': #C6C150,
   'menu': #547276,
-  'menu-accent': #A7A233
-
+  'menu-accent': #A7A233,
+  'pampas': #F0EDE5
 
   // https://colorhunt.co/palette/167311
 );
@@ -89,5 +89,13 @@ $color-combinations: (
   'menu': (
     'background': map-get($primary-colors, 'menu'),
     'color': map-get($primary-colors, 'white'),
+  ),
+  'menu-accent': (
+    'background': map-get($primary-colors, 'menu'),
+    'color': map-get($primary-colors, 'white'),
+  ),
+  'pampas': (
+    'background': map-get($primary-colors, 'pampas'),
+    'color': map-get($primary-colors, 'primary'),
   )
 );
