@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import Detail from '../views/gratitude/Detail.vue'
+import Edit from '../views/gratitude/Edit.vue'
+import addGratitude from '../views/gratitude/AddGratitude.vue'
+import editMoods from '@/views/moods/EditMoods.vue'
 
 // eslint-disable-next-line
 const routes: any[] = [
@@ -14,27 +19,27 @@ const routes: any[] = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: About
   },
   {
     path: '/gratitude/detail/:id',
     name: 'gratitude/detail',
-    component: () => import('../views/gratitude/Detail.vue')
+    component: Detail
   },
   {
     path: '/gratitude/edit/:id',
     name: 'gratitude/edit',
-    component: () => import('../views/gratitude/Edit.vue')
+    component: Edit
   },
   {
     path: '/gratitude/new',
     name: 'addgratitude',
-    component: () => import('../views/gratitude/AddGratitude.vue')
+    component: addGratitude
   },
   {
     path: '/moods/edit',
     name: 'editMoods',
-    component: () => import('../views/moods/EditMoods.vue')
+    component: editMoods
   }
 ]
 
