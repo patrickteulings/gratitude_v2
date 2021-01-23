@@ -19,7 +19,7 @@ module.exports = {
   },
 
   css: {
-    extract: true,
+    extract: false,
     sourceMap: true
   }
 }
