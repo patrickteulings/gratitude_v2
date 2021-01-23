@@ -14,7 +14,10 @@ module.exports = {
       themeColor: '182C34',
       backgroundColor: '#0F343C'
     },
-    workboxPluginMode: 'GenerateSW',
+    workboxPluginMode: 'InjectManifest',
+    workboxOptions: {
+      swSrc: 'service-worker.js'
+    },
     manifestCrossorigin: 'anonymous'
   },
 
