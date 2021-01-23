@@ -14,11 +14,12 @@ module.exports = {
       themeColor: '182C34',
       backgroundColor: '#0F343C'
     },
+    workboxPluginMode: 'GenerateSW',
     manifestCrossorigin: 'anonymous'
   },
 
   css: {
-    extract: false,
+    extract: true,
     sourceMap: true
   }
 }
