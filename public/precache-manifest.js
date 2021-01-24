@@ -1201,10 +1201,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     'url': '/img/weathericons-regular-webfont.ecaf8b48.svg'
   },
   {
-    'revision': '06ec4fb95df4e40ac340324dc23ec3ee',
-    'url': '/index.html'
-  },
-  {
     'revision': '5d55b3bc9aff674fbac5',
     'url': '/js/app.c1e2e3f0.js'
   },
